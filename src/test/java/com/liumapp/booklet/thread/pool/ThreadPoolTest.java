@@ -20,13 +20,23 @@ public class ThreadPoolTest {
     @Test
     public void testCreateThreadPool () throws InterruptedException {
         LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
-        ExecutorService executorService = new ThreadPoolExecutor(4, 8,
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(4, 8,
                 60L, TimeUnit.SECONDS,
                 queue);
         for (int i = 0; i < 30; i++) {
-            executorService.execute(new LongTimeJob());
+            executor.execute(new LongTimeJob());
         }
-        executorService.awaitTermination(1000, TimeUnit.MINUTES);
+        while(!executor.isTerminated()) {
+            System.out.println("task number: " + executor.getTaskCount());
+            System.out.println("active count: " + executor.getActiveCount());
+            System.out.println("completed task count: " + executor.getCompletedTaskCount());
+            Thread.sleep(1000);
+            if (executor.getCompletedTaskCount() == executor.getTaskCount()) {
+                executor.shutdown();
+            }
+        }
     }
+
+
 
 }

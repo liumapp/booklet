@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
  */
 public class LongTimeJob implements Runnable {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(LongTimeJob.class);
-
     @Override
     public void run() {
-        for (int i = 10; i < 1; i--) {
+        for (int i = 10; i > 1; i--) {
             try {
-                LOGGER.info("Thread id:" + Thread.currentThread().getId() + " begin " + i);
-                Thread.sleep(3000);
+                System.out.println("Thread id:" + Thread.currentThread().getId() + " begin " + i);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
