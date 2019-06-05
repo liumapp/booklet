@@ -1,5 +1,6 @@
 package com.liumapp.booklet.thread.pool;
 
+import com.liumapp.booklet.thread.runnable.longTimeJob;
 import org.junit.Test;
 
 import java.util.concurrent.*;
@@ -15,10 +16,16 @@ import java.util.concurrent.*;
 public class ThreadPoolTest {
 
     @Test
-    public void testCreateThreadPool () {
-        ExecutorService executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+    public void testCreateThreadPool () throws InterruptedException {
+        ExecutorService executorService = new ThreadPoolExecutor(4, 8,
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
+        for (int i = 0; i < 30; i++) {
+            executorService.execute(new longTimeJob());
+        }
+        while (!executorService.isShutdown()) {
+            Thread.sleep(1000);
+        }
     }
 
 }
