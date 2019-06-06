@@ -1,5 +1,6 @@
 package com.liumapp.booklet.thread.pool;
 
+import com.liumapp.booklet.thread.handler.PrintRejectedTaskHandler;
 import com.liumapp.booklet.thread.runnable.LongTimeJob;
 import org.junit.Test;
 
@@ -36,6 +37,7 @@ public class ThreadPoolTest {
             //如果使用最大size为5的ArrayBlockingQueue来放置任务，将会报RejectedExecutionException异常
             executor.execute(new LongTimeJob());
         }
+
         while(!executor.isTerminated()) {
             System.out.println("task number: " + executor.getTaskCount());
             System.out.println("active count: " + executor.getActiveCount());
@@ -47,7 +49,30 @@ public class ThreadPoolTest {
         }
     }
 
-//    public void testHanding
+    @Test
+    public void testRejectedExecutionHandler () throws InterruptedException {
+        ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(5); //限制允许放置的最大任务数目，当超出最大值的情况下，如何处理请看test2
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(4, 8,
+                60L, TimeUnit.SECONDS,
+                queue, Executors.defaultThreadFactory(), new PrintRejectedTaskHandler());
+        for (int i = 0; i < 30; i++) {
+            //放置30条任务
+            //如果使用最大size为5的ArrayBlockingQueue来放置任务，将会报RejectedExecutionException异常
+            executor.execute(new LongTimeJob());
+        }
+
+        while(!executor.isTerminated()) {
+            //放30条任务，13条被执行，剩下的17条执行PrintRejectedTaskHandler的rejectedExecution方法
+            System.out.println("task number: " + executor.getTaskCount());
+            System.out.println("active count: " + executor.getActiveCount());
+            System.out.println("completed task count: " + executor.getCompletedTaskCount());
+            Thread.sleep(1000);
+            if (executor.getCompletedTaskCount() == executor.getTaskCount()) {
+                executor.shutdown();
+            }
+        }
+    }
 
 
 
