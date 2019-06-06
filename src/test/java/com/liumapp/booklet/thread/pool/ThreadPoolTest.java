@@ -29,6 +29,9 @@ public class ThreadPoolTest {
         //正确但不能运行的演示
 //        ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(5); //限制允许放置的最大任务数目，当超出最大值的情况下，如何处理请看test2
 
+        /**
+         *
+         */
         ThreadPoolExecutor executor = new ThreadPoolExecutor(4, 8,
                 60L, TimeUnit.SECONDS,
                 queue);
