@@ -2,9 +2,12 @@ package com.liumapp.booklet.concurrent.controller;
 
 import com.liumapp.booklet.concurrent.service.NameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 
 /**
  * file NameController.java
@@ -16,14 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("name")
+@Scope("request")
 public class NameController {
 
     @Autowired
     private NameService nameService;
 
     @RequestMapping("")
-    public String changeAndReadName (@RequestParam String name) {
+    public String changeAndReadName (@RequestParam String name) throws InterruptedException {
+        System.out.println("get new request: " + name);
         nameService.setName(name);
+        Thread.sleep(300);
         return nameService.getName();
     }
 
