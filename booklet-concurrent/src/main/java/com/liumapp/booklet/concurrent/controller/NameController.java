@@ -28,10 +28,13 @@ public class NameController {
     @RequestMapping("")
     public String changeAndReadName (@RequestParam String name) throws InterruptedException {
         System.out.println("get new request: " + name);
+        String result = "";
+//        synchronized (this) {
         nameService.setName(name);
         Thread.sleep(300);
-        return nameService.getName();
+        result = nameService.getName();
+//        };
+        return result;
     }
-
 
 }
