@@ -162,11 +162,73 @@ public class NameService {
     }
 ````
 
-
-
-
+再次运行测试代码，我们可以发现效率问题基本解决，但是缺点是需要我们自己把握好哪一块是可能出现线程安全问题的代码（而实际的线上逻辑可能非常复杂，这一块不好把握）
 
 ### 改变bean对象的作用域
+
+现在非常不幸的事情发生了，我们连高耗时代码也是状态相关性的，而同时也需要保证效率问题，那么这种情况下就只能通过牺牲少量的内存来解决问题了
+
+大概思路就是通过改变bean对象的作用域，让每一个服务端线程对应一个新的bean对象来处理逻辑，通过彼此之间互不相关来回避线程安全问题
+
+首先我们需要知道bean对象的作用域有哪些，请见下表
+
+| 作用域 | 说明
+| :---: | :---:
+| singleton | 默认的作用域，这种情况下的bean都会被定义为一个单例对象，该对象的生命周期是与Spring IOC容器一致的（但出于Spring懒加载机制，只有在第一次被使用时才会创建）
+| prototype | bean被定义为在每次注入时都会创建一个新的对象
+| request | bean被定义为在每个HTTP请求中创建一个单例对象，也就是说在单个请求中都会复用这一个单例对象
+| session | bean被定义为在一个session的生命周期内创建一个单例对象
+| application | bean被定义为在ServletContext的生命周期中复用一个单例对象
+| websocket | bean被定义为在websocket的生命周期中复用一个单例对象
+
+清楚bean对象的作用域后，接下来我们就只需要考虑一个问题：修改哪些bean的作用域？
+
+前面我已经解释过，这个案例中，200个服务端线程，在默认情况下是操作2个单例bean对象，分别是NameController和NameService（没错，在Spring Boot下，Controller默认也是单例对象）
+
+那么是不是直接将NameController和NameServie设置为prototype就可以了呢？
+
+如果您的项目是用的Struts2，那么这样做没有任何问题，但是在Spring MVC下会严重影响性能，因为Struts2对请求的拦截是基于类，而Spring MVC则是基于方法
+
+所以我们应该将NameController的作用域设置为request，将NameService设置为prototype来解决
+
+具体操作代码如下
+
+````java
+@RestController
+@RequestMapping("name")
+@Scope("request")
+public class NameController {
+
+}
+````
+
+````java
+@Service
+@Scope("prototype")
+public class NameService {
+
+}
+
+````
+
+## 参考文献
+
+* https://dzone.com/articles/understanding-spring-reactiveclient-to-server-comm
+
+* https://dzone.com/articles/understanding-spring-reactive-servlet-async
+
+* https://medium.com/sipios/how-to-make-parallel-calls-in-java-springboot-application-and-how-to-test-them-dcc27318a0cf
+
+原创不易，转载请申明出处
+
+案例项目代码： [github/liumapp/booklet](https://github.com/liumapp/booklet/tree/master/booklet-concurrent)
+
+
+
+
+
+
+
 
 
 
