@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
 /**
  * file NameController.java
  * author liumapp
@@ -27,14 +25,10 @@ public class NameController {
 
     @RequestMapping("")
     public String changeAndReadName (@RequestParam String name) throws InterruptedException {
-        System.out.println("get new request: " + name);
-        String result = "";
-//        synchronized (this) {
+        System.out.println(Thread.currentThread().getName() + " get new request: " + name);
         nameService.setName(name);
         Thread.sleep(300);
-        result = nameService.getName();
-//        };
-        return result;
+        return nameService.getName();
     }
 
 }
