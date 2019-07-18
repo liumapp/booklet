@@ -12,9 +12,8 @@
 
   <groupId>com.liumapp.booklet.concurrent</groupId>
   <artifactId>booklet-concurrent</artifactId>
-  <packaging>jar</packaging>
-
   <version>v1.0.0</version>
+  <packaging>jar</packaging>
 
   <name>booklet-concurrent</name>
   <url>http://maven.apache.org</url>

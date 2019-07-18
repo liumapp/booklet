@@ -11,9 +11,8 @@
 
   <groupId>com.liumapp.booklet.docker</groupId>
   <artifactId>booklet-docker</artifactId>
-  <packaging>jar</packaging>
-
   <version>v1.0.0</version>
+  <packaging>jar</packaging>
 
   <name>booklet-concurrent</name>
   <url>http://maven.apache.org</url>
@@ -49,6 +48,23 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <imageName>liumapp/${project.artifactId}:${project.version}</imageName>
+          <baseImage>java:8</baseImage>
+          <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
       </plugin>
     </plugins>
   </build>
