@@ -1,6 +1,5 @@
 package com.liumapp.booklet.concurrent.service;
 
-import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
