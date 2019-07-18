@@ -179,7 +179,7 @@ public class NameService {
 | request | bean被定义为在每个HTTP请求中创建一个单例对象，也就是说在单个请求中都会复用这一个单例对象
 | session | bean被定义为在一个session的生命周期内创建一个单例对象
 | application | bean被定义为在ServletContext的生命周期中复用一个单例对象
-| websocket | bean被定义为在websocket的生命周期中复用一个单例对象
+| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  websocket  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  | bean被定义为在websocket的生命周期中复用一个单例对象
 
 清楚bean对象的作用域后，接下来我们就只需要考虑一个问题：修改哪些bean的作用域？
 
