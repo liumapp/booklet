@@ -49,6 +49,7 @@
 
   <modules>
     <module>booklet-concurrent</module>
+    <module>booklet-docker</module>
   </modules>
 
   <build>
