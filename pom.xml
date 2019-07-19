@@ -50,6 +50,7 @@
   <modules>
     <module>booklet-concurrent</module>
     <module>booklet-docker</module>
+    <module>booklet-restful</module>
   </modules>
 
   <build>
