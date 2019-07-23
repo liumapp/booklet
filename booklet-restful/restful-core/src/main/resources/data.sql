@@ -6,3 +6,4 @@ INSERT INTO product_b(name, price) VALUES('Iphone', 350000);
 INSERT INTO product_b(name, price) VALUES('MacbookPro', 21000);
 INSERT INTO product_b(name, price) VALUES('Ipad', 41400);
 INSERT INTO product_b(name, price) VALUES('MacbookAir', 21600);
+INSERT INTO users(name, phone, appId, appSecret) VALUES('liumapp', '15757125631', 'yourAppId', 'yourAppSecret');
