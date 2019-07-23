@@ -26,6 +26,16 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.liumapp.booklet.restful.core</groupId>
+      <artifactId>restful-core</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.liumapp.booklet.restful.services</groupId>
+      <artifactId>restful-services</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>

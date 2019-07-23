@@ -3,3 +3,15 @@ server:
 spring:
   application:
     name: restful-portal
+  h2:
+      console:
+        enabled: true
+  datasource:
+     driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:test_spring_ibatis
+     url: jdbc:h2:./data/db3/test_spring_ibatis
+     username: sa
+     password: password
+     schema: classpath:schema.sql
+     data: classpath:data.sql
+
