@@ -32,8 +32,13 @@
       <version>v1.0.0</version>
     </dependency>
     <dependency>
-      <groupId>com.liumapp.booklet.restful.services</groupId>
-      <artifactId>restful-services</artifactId>
+      <groupId>com.liumapp.booklet.restful.services.aproduct</groupId>
+      <artifactId>product-a</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.liumapp.booklet.restful.services.bproduct</groupId>
+      <artifactId>product-b</artifactId>
       <version>v1.0.0</version>
     </dependency>
   </dependencies>

@@ -1,5 +1,6 @@
 package com.liumapp.booklet.restful.core;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * date 2019/7/23
  */
 @SpringBootApplication
+@MapperScan("com.liumapp.booklet.restful.core.mapper")
 public class RestfulCoreMain
 {
 

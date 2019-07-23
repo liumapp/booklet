@@ -9,7 +9,7 @@ spring:
   datasource:
      driverClassName: org.h2.Driver
 #    url: jdbc:h2:mem:test_spring_ibatis
-     url: jdbc:h2:./data/db3/booklet-restful
+     url: jdbc:h2:../restfuldb/booklet-restful
      username: restful
      password: password
      schema: classpath:schema.sql

@@ -3,7 +3,7 @@ package com.liumapp.booklet.restful.services.bproduct;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * file ProductB.java
+ * file ProductBMain.java
  * author liumapp
  * github https://github.com/liumapp
  * email liumapp.com@gmail.com
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * date 2019/7/23
  */
 @SpringBootApplication
-public class ProductB
+public class ProductBMain
 {
 
 }
