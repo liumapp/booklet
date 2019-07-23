@@ -13,7 +13,7 @@
   <groupId>com.liumapp.booklet.restful</groupId>
   <artifactId>booklet-restful</artifactId>
   <version>v1.0.0</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>booklet-restful</name>
   <url>http://maven.apache.org</url>
@@ -35,6 +35,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <modules>
+
+  </modules>
 
   <build>
     <plugins>
