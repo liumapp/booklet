@@ -1,4 +1,4 @@
-package com.liumapp.booklet.restful.services;
+package com.liumapp.booklet.restful.services.bproduct;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

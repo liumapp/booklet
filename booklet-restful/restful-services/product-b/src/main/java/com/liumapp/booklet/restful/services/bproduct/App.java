@@ -1,4 +1,4 @@
-package com.liumapp.booklet.restful.services;
+package com.liumapp.booklet.restful.services.bproduct;
 
 /**
  * Hello world!
