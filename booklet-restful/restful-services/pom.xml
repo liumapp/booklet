@@ -15,10 +15,6 @@
   <name>restful-services</name>
   <url>http://maven.apache.org</url>
 
-  <dependencies>
-
-  </dependencies>
-
   <modules>
     <module>product-a</module>
     <module>product-b</module>
