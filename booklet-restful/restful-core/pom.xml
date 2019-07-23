@@ -2,19 +2,20 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.liumapp.booklet.restful</groupId>
     <artifactId>booklet-restful</artifactId>
     <version>v1.0.0</version>
   </parent>
+
   <groupId>com.liumapp.booklet.restful.core</groupId>
   <artifactId>restful-core</artifactId>
-  <version>v1.0.0</version>
   <name>restful-core</name>
+  <version>v1.0.0</version>
+  <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -23,4 +24,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
 </project>
