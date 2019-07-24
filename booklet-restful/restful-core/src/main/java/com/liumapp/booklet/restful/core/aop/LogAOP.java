@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
+@Order(1)
 public class LogAOP {
 
     public static final String JSON_KEY = "logjson";
