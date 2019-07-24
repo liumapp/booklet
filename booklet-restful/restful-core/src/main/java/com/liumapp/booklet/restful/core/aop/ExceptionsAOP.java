@@ -75,7 +75,6 @@ public class ExceptionsAOP {
     private ResultBean<?> handlerException(ProceedingJoinPoint pjp, Throwable e) {
         ResultBean<?> result = new ResultBean();
 
-
         /**
          * 已知异常【注意：已知异常不要打印堆栈，否则会干扰日志】
          * 校验出错，参数非法
