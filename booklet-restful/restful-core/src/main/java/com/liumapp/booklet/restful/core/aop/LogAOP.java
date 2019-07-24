@@ -7,15 +7,15 @@ import com.liumapp.booklet.restful.core.util.UserUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 
 /**
  *  日志信息处理AOP
  *  把需要的信息从参数中提取出来，转成json字符串放到MDC中使用。
- *
- *  注意：注解不支持重入（就是嵌套的方法里面还有LOG注解）
- *  如果你项目中有这种使用场景，自己修改一下也非常简单，就是修改前保存起来即可。
  *
  * file LogAOP.java
  * author liumapp
@@ -25,11 +25,19 @@ import org.slf4j.MDC;
  * date 2019/7/24
  */
 @Slf4j
+@Aspect
 public class LogAOP {
 
     public static final String JSON_KEY = "logjson";
 
+    @Pointcut("@annotation(com.liumapp.booklet.restful.core.annotations.Log)")
+    public void LogHandler () {}
 
+    @SneakyThrows
+    @Around("LogHandler()")
+    public void LogHandlerMethod (ProceedingJoinPoint proceedingJoinPoint) {
+
+    }
 
     @SneakyThrows
     public Object handlerLogMethod(ProceedingJoinPoint pjp) {
