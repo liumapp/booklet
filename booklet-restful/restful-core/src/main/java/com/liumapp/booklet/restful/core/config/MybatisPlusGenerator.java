@@ -41,25 +41,21 @@ public class MybatisPlusGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("liumapp");
         gc.setOpen(false);
-        gc.setSwagger2(false);
+        gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        //mysql配置如下
-        //dsc.setUrl("jdbc:mysql://localhost:3306/tmp?serverTimezone=GMT%2B8&useUnicode=true&useSSL=false&characterEncoding=utf8");
-        //h2配置如下
-        dsc.setUrl("jdbc:h2:./booklet-restful/restfuldb/booklet-restful");
-        dsc.setSchemaName("booklet-restful");
-//        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setDriverName("org.h2.Driver");
-        dsc.setUsername("restful");
-        dsc.setPassword("password");
+        dsc.setUrl("jdbc:mysql://localhost:3306/tmp?serverTimezone=GMT%2B8&useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setSchemaName("tmp");
+        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("adminadmin");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("");
+        pc.setModuleName("db");
         pc.setParent(groupId);
         mpg.setPackageInfo(pc);
 
@@ -107,14 +103,13 @@ public class MybatisPlusGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass(groupId + ".base.BaseEntity");
+        strategy.setSuperEntityClass(groupId + ".beans.BaseEntity");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setSuperControllerClass(groupId + ".base.BaseController");
         strategy.setInclude(tableNames.split(","));
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
