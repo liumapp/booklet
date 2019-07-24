@@ -1,6 +1,7 @@
 package com.liumapp.booklet.restful.core.consts;
 
 /**
+ *
  * 日志注解里面的常量，自己增加即可
  *
  * file LogConst.java
@@ -10,7 +11,7 @@ package com.liumapp.booklet.restful.core.consts;
  * homepage http://www.liumapp.com
  * date 2019/7/24
  */
-public class LogConst {
+public interface LogConst {
 
     String ACTION_ADD = "添加操作";
 

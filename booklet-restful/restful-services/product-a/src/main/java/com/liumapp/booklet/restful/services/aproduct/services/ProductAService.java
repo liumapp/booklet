@@ -29,9 +29,13 @@ public class ProductAService {
 
     public Collection<ProductA> getAll () {
         //校验参数
+        //todo
 
-
+        //检验通过打印参数
+        logger.info("getAll start...");
         List<ProductA> data = mapper.selectList(null);
+        logger.info("getAll end, dataSize:{}", data.size());
+
         return data;
     }
 

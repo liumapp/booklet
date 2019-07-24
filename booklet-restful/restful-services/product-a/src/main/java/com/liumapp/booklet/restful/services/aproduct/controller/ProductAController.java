@@ -2,6 +2,7 @@ package com.liumapp.booklet.restful.services.aproduct.controller;
 
 import com.liumapp.booklet.restful.core.annotations.Log;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
+import com.liumapp.booklet.restful.core.consts.LogConst;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
 import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
 import com.liumapp.booklet.restful.services.aproduct.services.ProductAService;
@@ -28,9 +29,9 @@ public class ProductAController {
     private ProductAService service;
 
     @GetMapping("/all")
-//    @Log(action = )
+    @Log(action = LogConst.ACTION_QUERY, itemType = LogConst.ITEM_TYPE_PRODUCT_A)
     public ResultBean<Collection<ProductA>> getAll () {
-        return new ResultBean<Collection<ProductA>>();
+        return new ResultBean<Collection<ProductA>>(service.getAll());
     }
 
 }
