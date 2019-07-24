@@ -1,8 +1,16 @@
 package com.liumapp.booklet.restful.services.aproduct.controller;
 
+import com.liumapp.booklet.restful.core.annotations.Log;
+import com.liumapp.booklet.restful.core.beans.ResultBean;
+import com.liumapp.booklet.restful.core.db.entity.ProductA;
+import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
+import com.liumapp.booklet.restful.services.aproduct.services.ProductAService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 /**
  * file ProductAController.java
@@ -16,6 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/proa")
 public class ProductAController {
 
+    @Autowired
+    private ProductAService service;
 
+    @GetMapping("/all")
+//    @Log(action = )
+    public ResultBean<Collection<ProductA>> getAll () {
+        return new ResultBean<Collection<ProductA>>();
+    }
 
 }
