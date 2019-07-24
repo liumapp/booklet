@@ -4,7 +4,6 @@ import com.liumapp.booklet.restful.core.annotations.Log;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
 import com.liumapp.booklet.restful.core.consts.LogConst;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
-import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
 import com.liumapp.booklet.restful.services.aproduct.services.ProductAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
