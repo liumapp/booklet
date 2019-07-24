@@ -30,6 +30,7 @@ public class ProductAService {
     public Collection<ProductA> getAll () {
         //校验参数
 
+
         List<ProductA> data = mapper.selectList(null);
         return data;
     }
