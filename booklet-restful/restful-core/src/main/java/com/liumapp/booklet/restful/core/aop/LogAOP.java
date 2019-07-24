@@ -35,35 +35,19 @@ public class LogAOP {
 
     @SneakyThrows
     @Around("LogHandler()")
-    public void LogHandlerMethod (ProceedingJoinPoint proceedingJoinPoint) {
+    public Object LogHandlerMethod (ProceedingJoinPoint proceedingJoinPoint) {
         long startTime = System.currentTimeMillis();
         Object result;
 
         try {
-
-        } finally {
-            clearMDC();
-        }
-    }
-
-    @SneakyThrows
-    public Object handlerLogMethod(ProceedingJoinPoint pjp) {
-        long startTime = System.currentTimeMillis();
-
-        Object result;
-
-        try {
-            putLogInfo2MDC(pjp);
-
-            result = pjp.proceed();
-
+            putLogInfo2MDC(proceedingJoinPoint);
+            result = proceedingJoinPoint.proceed();
             // 本次操作用时（毫秒）
             long elapsedTime = System.currentTimeMillis() - startTime;
-            log.info("[{}]use time: {}", pjp.getSignature(), elapsedTime);
+            log.info("[{}]use time: {}", proceedingJoinPoint.getSignature(), elapsedTime);
         } finally {
             clearMDC();
         }
-
         return result;
     }
 
