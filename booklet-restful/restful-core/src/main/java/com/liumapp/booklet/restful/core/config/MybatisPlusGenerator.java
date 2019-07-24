@@ -110,7 +110,6 @@ public class MybatisPlusGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setInclude(tableNames.split(","));
-        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix("");
         mpg.setStrategy(strategy);

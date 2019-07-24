@@ -1,6 +1,8 @@
 package com.liumapp.booklet.restful.portal;
 
 import com.liumapp.booklet.restful.core.RestfulCoreMain;
+import com.liumapp.booklet.restful.services.aproduct.ProductAMain;
+import com.liumapp.booklet.restful.services.bproduct.ProductBMain;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -16,6 +18,8 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import({
         RestfulCoreMain.class,
+        ProductAMain.class,
+        ProductBMain.class
 })
 public class RestfulePortalMain
 {
