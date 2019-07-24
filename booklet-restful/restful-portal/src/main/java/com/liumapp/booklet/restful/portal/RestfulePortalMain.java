@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import({
         RestfulCoreMain.class,
-        
 })
 public class RestfulePortalMain
 {

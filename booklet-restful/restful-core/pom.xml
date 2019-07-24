@@ -11,8 +11,9 @@
 
   <groupId>com.liumapp.booklet.restful.core</groupId>
   <artifactId>restful-core</artifactId>
-  <name>restful-core</name>
   <version>v1.0.0</version>
+
+  <name>restful-core</name>
   <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
 
