@@ -1,11 +1,5 @@
 package com.liumapp.booklet.restful.portal;
 
-import com.liumapp.booklet.restful.core.domain.ProductA;
-import com.liumapp.booklet.restful.core.domain.ProductB;
-import com.liumapp.booklet.restful.core.domain.Users;
-import com.liumapp.booklet.restful.core.mapper.ProductAMapper;
-import com.liumapp.booklet.restful.core.mapper.ProductBMapper;
-import com.liumapp.booklet.restful.core.mapper.UsersMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,30 +23,35 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class H2DbTest {
 
-    @Autowired
-    private ProductAMapper mappera;
-
-    @Autowired
-    private ProductBMapper mapperb;
-
-    @Autowired
-    private UsersMapper mapperUsers;
+//    @Autowired
+//    private ProductAMapper mappera;
+//
+//    @Autowired
+//    private ProductBMapper mapperb;
+//
+//    @Autowired
+//    private UsersMapper mapperUsers;
+//
+//    @Test
+//    public void testSelect () {
+//        System.out.println(("----- selectAll method test ------"));
+//        List<ProductA> aList = mappera.selectList(null);
+//        List<ProductB> bList = mapperb.selectList(null);
+//        List<Users> userList = mapperUsers.selectList(null);
+//
+//        Assert.assertEquals(4, aList.size());
+//        aList.forEach(System.out::println);
+//
+//        Assert.assertEquals(4, bList.size());
+//        bList.forEach(System.out::println);
+//
+//        Assert.assertEquals(1, userList.size());
+//        userList.forEach(System.out::println);
+//    }
 
     @Test
-    public void testSelect () {
-        System.out.println(("----- selectAll method test ------"));
-        List<ProductA> aList = mappera.selectList(null);
-        List<ProductB> bList = mapperb.selectList(null);
-        List<Users> userList = mapperUsers.selectList(null);
-
-        Assert.assertEquals(4, aList.size());
-        aList.forEach(System.out::println);
-
-        Assert.assertEquals(4, bList.size());
-        bList.forEach(System.out::println);
-
-        Assert.assertEquals(1, userList.size());
-        userList.forEach(System.out::println);
+    public void test () {
+        System.out.println("hello");
     }
 
 }
