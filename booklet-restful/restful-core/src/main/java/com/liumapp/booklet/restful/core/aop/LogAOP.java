@@ -36,7 +36,14 @@ public class LogAOP {
     @SneakyThrows
     @Around("LogHandler()")
     public void LogHandlerMethod (ProceedingJoinPoint proceedingJoinPoint) {
+        long startTime = System.currentTimeMillis();
+        Object result;
 
+        try {
+
+        } finally {
+            clearMDC();
+        }
     }
 
     @SneakyThrows
