@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * date 2019/7/23
  */
 @SpringBootApplication
-@MapperScan("com.liumapp.booklet.restful.core.mapper")
+@MapperScan("com.liumapp.booklet.restful.core.db.mapper")
 public class RestfulCoreMain
 {
 
