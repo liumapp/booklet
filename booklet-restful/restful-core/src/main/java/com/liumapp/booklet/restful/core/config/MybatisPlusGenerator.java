@@ -15,6 +15,9 @@ import java.util.List;
 /**
  * 生成mybatis-plus模板文件
  * 定义在config包下，因为每次数据库建表后，需要运行该文件来生成对应的domain与mapper文件，类似于配置的概念
+ * 如果是一个新的项目要启用新的数据库，那么删除db目录下的代码，以及resources目录下的mapper文件
+ * 然后配置这个类，重新生成新的数据库相关类
+ *
  * file MybatisPlusGenerator.java
  * author liumapp
  * github https://github.com/liumapp
