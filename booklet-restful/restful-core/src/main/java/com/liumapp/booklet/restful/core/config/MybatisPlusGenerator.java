@@ -12,12 +12,9 @@ package com.liumapp.booklet.restful.core.config;
  */
 public class MybatisPlusGenerator {
 
-    private static String tableNames = "b3_solo_archivedate_article," +
-            "b3_solo_article," +
-            "b3_solo_comment," +
-            "b3_solo_link," +
-            "b3_solo_tag," +
-            "b3_solo_tag_article";
+    private static String tableNames = "product_a," +
+            "product_b," +
+            "users";
 
     public static void main(String[] args) {
 
