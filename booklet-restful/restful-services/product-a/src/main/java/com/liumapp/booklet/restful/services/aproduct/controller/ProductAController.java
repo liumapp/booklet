@@ -38,7 +38,7 @@ public class ProductAController {
     @PostMapping("/add")
     @Log(action = ProductALogConst.ACTION_ADD, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A, itemId = "#productA.name")
     public ResultBean<Long> add (ProductA productA) {
-        return null;
+        return new ResultBean<Long>(service.add(productA));
     }
 
 }

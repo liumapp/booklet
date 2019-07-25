@@ -48,9 +48,13 @@ public class ProductAService {
         notNegativeInteger(productA.getPrice(), "price.is.null");
 
         //检验通过打印参数
-        g
+        logger.info("add producta:" + productA);
+        int newId = mapper.insert(productA);
 
         //增加或修改操作，需要打印操作结果
+        logger.info("add producta success, id:{}", newId);
+
+        return newId;
     }
 
 
