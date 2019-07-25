@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Locale;
+
 /**
  * file MessageSourceConfig.java
  * author liumapp
