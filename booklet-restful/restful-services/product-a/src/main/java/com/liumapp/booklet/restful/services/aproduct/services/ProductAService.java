@@ -43,7 +43,14 @@ public class ProductAService {
 
     public long add (ProductA productA) {
         //校验参数
-        notNull(productA, "");
+        notNull(productA, "param.is.null");
+        notEmpty(productA.getName(), "name.is.null");
+        notNegativeInteger(productA.getPrice(), "price.is.null");
+
+        //检验通过打印参数
+        g
+
+        //增加或修改操作，需要打印操作结果
     }
 
 
