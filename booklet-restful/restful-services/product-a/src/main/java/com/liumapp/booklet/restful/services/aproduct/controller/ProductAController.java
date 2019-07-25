@@ -4,6 +4,7 @@ import com.liumapp.booklet.restful.core.annotations.Log;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
 import com.liumapp.booklet.restful.core.consts.LogConst;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
+import com.liumapp.booklet.restful.services.aproduct.consts.ProductALogConst;
 import com.liumapp.booklet.restful.services.aproduct.services.ProductAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,14 @@ public class ProductAController {
     private ProductAService service;
 
     @GetMapping("/all")
-    @Log(action = LogConst.ACTION_QUERY, itemType = LogConst.ITEM_TYPE_PRODUCT_A)
+    @Log(action = LogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
     public ResultBean<Collection<ProductA>> getAll () {
         return new ResultBean<Collection<ProductA>>(service.getAll());
+    }
+
+    
+    public ResultBean<Long> add (ProductA productA) {
+        return null;
     }
 
 }
