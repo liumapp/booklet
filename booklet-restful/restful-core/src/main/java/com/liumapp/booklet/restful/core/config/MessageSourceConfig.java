@@ -2,6 +2,7 @@ package com.liumapp.booklet.restful.core.config;
 
 import com.liumapp.booklet.restful.core.util.CheckUtil;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,10 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessageSourceConfig implements InitializingBean {
 
-    private static MessageSource resources;
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        CheckUtil.setResources(resources);
+        CheckUtil.setResources(messageSource);
     }
 }

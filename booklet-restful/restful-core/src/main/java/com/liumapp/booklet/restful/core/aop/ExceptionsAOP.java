@@ -37,7 +37,7 @@ public class ExceptionsAOP {
      * 要求所有Controller统一返回ResultBean格式的对象
      * 同时ResultBean不允许在Controller以外的地方传递
      */
-    @Pointcut("execution(public * com.liumapp.booklet.restful.core.beans.ResultBean.*(..))")
+    @Pointcut("execution(public com.liumapp.booklet.restful.core.beans.ResultBean *(..))")
     public void excudeService() {
     }
 

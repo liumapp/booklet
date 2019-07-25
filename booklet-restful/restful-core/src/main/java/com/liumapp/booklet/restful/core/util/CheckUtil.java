@@ -36,6 +36,7 @@ public class CheckUtil {
 
     //非负数
     public static void notNegativeInteger (Integer val, String msgKey, Object... args) {
+        notNull(val, msgKey, args);
         if (val < 0) {
             fail(msgKey, args);
         }
