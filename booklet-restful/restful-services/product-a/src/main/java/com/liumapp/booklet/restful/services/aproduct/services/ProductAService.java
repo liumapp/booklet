@@ -29,7 +29,7 @@ public class ProductAService {
 
     public Collection<ProductA> getAll () {
         //校验参数
-        //todo
+        //todo 当前情况下，查询列表暂无参数需要
 
         //检验通过打印参数
         logger.info("get all productA info start...");
@@ -37,6 +37,11 @@ public class ProductAService {
         logger.info("get all productA info end, dataSize:{}", data.size());
 
         return data;
+    }
+
+    public long add (ProductA productA) {
+        //校验参数
+
     }
 
 
