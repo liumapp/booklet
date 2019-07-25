@@ -17,8 +17,6 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  */
 public class SPELUtil {
 
-
-
     private final SpelExpressionParser parser;
     private final StandardEvaluationContext context;
 
