@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 
+import static com.liumapp.booklet.restful.core.util.CheckUtil.*;
+
 /**
  * 在service执行参数检查、日志打印等操作
  * file ProductAService.java
@@ -41,7 +43,7 @@ public class ProductAService {
 
     public long add (ProductA productA) {
         //校验参数
-
+        notNull(productA, "");
     }
 
 
