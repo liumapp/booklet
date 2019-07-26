@@ -34,11 +34,11 @@ public class ProductAController {
         return new ResultBean<Collection<ProductA>>(service.getAll());
     }
 
-    @RequestMapping("/page")
-    @Log(action = ProductALogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
-    public ResultBean<Collection<ProductA>> getPage () {
-        return new ResultBean<Collection<ProductA>>(service.getPage());
-    }
+//    @RequestMapping("/page")
+//    @Log(action = ProductALogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
+//    public ResultBean<Collection<ProductA>> getPage () {
+//        return new ResultBean<Collection<ProductA>>(service.getPage());
+//    }
 
     @RequestMapping("/add")
     @Log(action = ProductALogConst.ACTION_ADD, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A, itemId = "#productA.name")

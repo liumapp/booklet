@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author liumapp
- * @since 2019-07-24
+ * @since 2019-07-26
  */
 @Service
 public class ProductBServiceImpl extends ServiceImpl<ProductBMapper, ProductB> implements IProductBService {

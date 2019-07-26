@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * homepage http://www.liumapp.com
  * date 2019/7/26
  */
-@Configuration
-@MapperScan("com.liumapp.booklet.restful.core.db.mapper")
+//@Configuration
+//@MapperScan("com.liumapp.booklet.restful.core.db.mapper")
 public class MybatisPlusConfig {
 
     /**

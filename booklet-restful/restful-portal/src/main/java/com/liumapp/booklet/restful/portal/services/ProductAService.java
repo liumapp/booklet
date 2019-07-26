@@ -1,10 +1,7 @@
 package com.liumapp.booklet.restful.portal.services;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
 import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
-import com.liumapp.booklet.restful.core.db.service.impl.ProductAServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,10 @@ public class ProductAService {
     private ProductAMapper mapper;
 
 
-    public Collection<ProductA> getPage () {
-
-    }
+//    public Collection<ProductA> getPage () {
+//        ProductAPage<ProductA> productAPage = new ProductAPage<>(1, 3);
+//        productAPage
+//    }
 
     public Collection<ProductA> getAll () {
         //校验参数

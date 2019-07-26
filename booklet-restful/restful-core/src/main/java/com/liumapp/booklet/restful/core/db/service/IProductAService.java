@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author liumapp
- * @since 2019-07-24
+ * @since 2019-07-26
  */
 public interface IProductAService extends IService<ProductA> {
 
