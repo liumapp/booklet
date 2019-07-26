@@ -41,6 +41,7 @@ public class ProductAService {
 
         //检验通过打印参数
         logger.info("get all productA info start...");
+
         List<ProductA> data = mapper.selectList(null);
         logger.info("get all productA info end, dataSize:{}", data.size());
 

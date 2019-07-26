@@ -2,6 +2,7 @@ package com.liumapp.booklet.restful.core.db.mapper;
 
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
