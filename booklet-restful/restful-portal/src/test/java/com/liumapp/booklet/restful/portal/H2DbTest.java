@@ -73,9 +73,8 @@ public class H2DbTest {
     @Test
     public void testPage2 () {
         System.out.println("----- baseMapper 自带分页 ------");
-        Page<ProductA> page = new Page<>(1, 5);
-        IPage<ProductA> userIPage = mappera.selectPage(page, new QueryWrapper<ProductA>()
-                .eq("age", 20).eq("name", "Jack"));
+        Page<ProductA> page = new Page<>(2, 2);
+        IPage<ProductA> userIPage = mappera.selectPage(page, new QueryWrapper<ProductA>());
 
         System.out.println("总条数 ------> " + userIPage.getTotal());
         System.out.println("当前页数 ------> " + userIPage.getCurrent());
@@ -83,22 +82,6 @@ public class H2DbTest {
         System.out.println(userIPage.getRecords());
         System.out.println("----- baseMapper 自带分页 ------");
 
-        System.out.println("json 正反序列化 begin");
-        String json = JSON.toJSONString(page);
-        Page<ProductA> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(ProductA.class).build());
-        print(page1.getRecords());
-        System.out.println("json 正反序列化 end");
-
-        System.out.println("----- 自定义 XML 分页 ------");
-        MyPage<ProductA> myPage = new MyPage<ProductA>(1, 5).setSelectInt(20).setSelectStr("Jack");
-        ParamSome paramSome = new ParamSome(20, "Jack");
-        MyPage<User> userMyPage = mapper.mySelectPage(myPage, paramSome);
-        assertThat(myPage).isSameAs(userMyPage);
-        System.out.println("总条数 ------> " + userMyPage.getTotal());
-        System.out.println("当前页数 ------> " + userMyPage.getCurrent());
-        System.out.println("当前每页显示数 ------> " + userMyPage.getSize());
-        print(userMyPage.getRecords());
-        System.out.println("----- 自定义 XML 分页 ------");
     }
 
 
