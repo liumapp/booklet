@@ -1,10 +1,9 @@
 package com.liumapp.booklet.restful.portal.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liumapp.booklet.restful.core.annotations.Log;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
+import com.liumapp.booklet.restful.core.db.model.ProductAPage;
 import com.liumapp.booklet.restful.portal.consts.ProductALogConst;
 import com.liumapp.booklet.restful.portal.services.ProductAService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +36,8 @@ public class ProductAController {
 
     @RequestMapping("/page")
     @Log(action = ProductALogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
-    public ResultBean<IPage<ProductA>> getPage () {
-        Page<ProductA> page = new Page<>();
-        return new ResultBean<IPage<ProductA>>(service.selectUserPage(page));
+    public ResultBean<Collection<ProductA>> getPage () {
+        return new ResultBean<Collection<ProductA>>(service.getPage());
     }
 
     @RequestMapping("/add")
