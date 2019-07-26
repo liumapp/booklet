@@ -1,7 +1,10 @@
 package com.liumapp.booklet.restful.portal.services;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
 import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
+import com.liumapp.booklet.restful.core.db.service.impl.ProductAServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,15 @@ public class ProductAService {
 
     @Autowired
     private ProductAMapper mapper;
+
+
+    public IPage<ProductA> selectUserPage(Page<ProductA> page) {
+        // 不进行 count sql 优化，解决 MP 无法自动优化 SQL 问题，这时候你需要自己查询 count 部分
+        // page.setOptimizeCountSql(false);
+        // 当 total 为小于 0 或者设置 setSearchCount(false) 分页插件不会进行 count 查询
+        // 要点!! 分页返回的对象与传入的对象是同一个
+        return mapper.selectPageVo(page);
+    }
 
     public Collection<ProductA> getAll () {
         //校验参数

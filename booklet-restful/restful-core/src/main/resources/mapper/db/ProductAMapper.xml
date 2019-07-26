@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liumapp.booklet.restful.core.db.mapper.ProductAMapper">
-
+    <!--编写一个普通 list 查询，mybatis-plus 自动替你分页-->
+    <select id="selectPageVo" resultType="com.liumapp.booklet.restful.core.db.entity.ProductA">
+        SELECT * FROM product_a
+    </select>
 </mapper>

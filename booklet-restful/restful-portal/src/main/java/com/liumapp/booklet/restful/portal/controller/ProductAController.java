@@ -1,5 +1,7 @@
 package com.liumapp.booklet.restful.portal.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liumapp.booklet.restful.core.annotations.Log;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
@@ -31,6 +33,13 @@ public class ProductAController {
     @Log(action = ProductALogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
     public ResultBean<Collection<ProductA>> getAll () {
         return new ResultBean<Collection<ProductA>>(service.getAll());
+    }
+
+    @RequestMapping("/page")
+    @Log(action = ProductALogConst.ACTION_QUERY, itemType = ProductALogConst.ITEM_TYPE_PRODUCT_A)
+    public ResultBean<IPage<ProductA>> getPage () {
+        Page<ProductA> page = new Page<>();
+        return new ResultBean<IPage<ProductA>>(service.selectUserPage(page));
     }
 
     @RequestMapping("/add")
