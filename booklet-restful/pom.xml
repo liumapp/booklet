@@ -33,7 +33,6 @@
 
   <modules>
     <module>restful-core</module>
-    <module>restful-services</module>
     <module>restful-portal</module>
   </modules>
 
