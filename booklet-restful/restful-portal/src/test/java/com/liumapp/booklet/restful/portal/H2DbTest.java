@@ -1,6 +1,8 @@
 package com.liumapp.booklet.restful.portal;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
 import com.liumapp.booklet.restful.core.db.entity.ProductB;
@@ -58,14 +60,45 @@ public class H2DbTest {
     }
 
     @Test
-    public void testPage () {
+    public void testPage1 () {
         Page<ProductA> page = new Page<>(1, 3);
         QueryWrapper<ProductA> wrapper = new QueryWrapper<>();
-        wrapper.lambda().ge(User::getAge, 1);
-        IPage<User> result = mapper.selectPage(page, wrapper);
+//        wrapper.like("name", "Audi");
+        IPage<ProductA> result = mappera.selectPage(page, wrapper);
         System.out.println(result.getTotal());
         Assert.assertTrue(result.getTotal() > 3);
         Assert.assertEquals(3, result.getRecords().size());
+    }
+
+    @Test
+    public void testPage2 () {
+//        System.out.println("----- baseMapper 自带分页 ------");
+//        Page<ProductA> page = new Page<>(1, 5);
+//        IPage<ProductA> userIPage = mappera.selectPage(page, new QueryWrapper<ProductA>()
+//                .eq("age", 20).eq("name", "Jack"));
+//
+//        System.out.println("总条数 ------> " + userIPage.getTotal());
+//        System.out.println("当前页数 ------> " + userIPage.getCurrent());
+//        System.out.println("当前每页显示数 ------> " + userIPage.getSize());
+//        System.out.println(userIPage.getRecords());
+//        System.out.println("----- baseMapper 自带分页 ------");
+//
+//        System.out.println("json 正反序列化 begin");
+//        String json = JSON.toJSONString(page);
+//        Page<ProductA> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(ProductA.class).build());
+//        print(page1.getRecords());
+//        System.out.println("json 正反序列化 end");
+//
+//        System.out.println("----- 自定义 XML 分页 ------");
+//        MyPage<ProductA> myPage = new MyPage<ProductA>(1, 5).setSelectInt(20).setSelectStr("Jack");
+//        ParamSome paramSome = new ParamSome(20, "Jack");
+//        MyPage<User> userMyPage = mapper.mySelectPage(myPage, paramSome);
+//        assertThat(myPage).isSameAs(userMyPage);
+//        System.out.println("总条数 ------> " + userMyPage.getTotal());
+//        System.out.println("当前页数 ------> " + userMyPage.getCurrent());
+//        System.out.println("当前每页显示数 ------> " + userMyPage.getSize());
+//        print(userMyPage.getRecords());
+//        System.out.println("----- 自定义 XML 分页 ------");
     }
 
 
