@@ -21,14 +21,8 @@ public interface LogConst {
 
     String ACTION_QUERY= "查询操作";
 
-    /**
-     *  对象/产品类型
-     *
-     *  在具体的services模块中去定义
-     *
-     */
-    //String ITEM_TYPE_PRODUCT_A = "产品a";
+    String ITEM_TYPE_PRODUCT_A = "产品a";
 
-    //String ITEM_TYPE_PRODUCT_B = "产品b";
+    String ITEM_TYPE_PRODUCT_B = "产品b";
 
 }
