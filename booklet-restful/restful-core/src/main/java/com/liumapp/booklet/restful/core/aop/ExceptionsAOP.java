@@ -3,6 +3,7 @@ package com.liumapp.booklet.restful.core.aop;
 import com.liumapp.booklet.restful.core.beans.ResultBean;
 import com.liumapp.booklet.restful.core.exceptions.CheckException;
 import com.liumapp.booklet.restful.core.exceptions.NoPermissionException;
+import com.liumapp.booklet.restful.core.exceptions.UnLegalTokenException;
 import com.liumapp.booklet.restful.core.exceptions.UnLoginException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -93,6 +94,11 @@ public class ExceptionsAOP {
         else if (e instanceof NoPermissionException) {
             result.setMsg("NO PERMISSION");
             result.setCode(ResultBean.NO_PERMISSION);
+        }
+        //无效的token
+        else if (e instanceof UnLegalTokenException) {
+            result.setMsg("token expired");
+            result.setCode(ResultBean.TOKEN_EXPIRED);
         } else {
             logger.error(pjp.getSignature() + " error ", e);
             // TODO 未知的异常，应该格外注意，可以发送邮件通知等

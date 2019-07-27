@@ -1,6 +1,7 @@
 package com.liumapp.booklet.restful.portal.services;
 
 import com.liumapp.booklet.restful.core.db.entity.Users;
+import com.liumapp.booklet.restful.core.util.UserUtil;
 import com.liumapp.booklet.restful.portal.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +27,13 @@ public class UsersService {
 
         //检查用户账号是否存在
         // todo
-
         String token = tokenUtil.generateToken(users);
         return token;
     }
 
     public Boolean saveUserInfoToThreadLocal (Users users) {
-
-        return false;
+        UserUtil.setUser(users);
+        return true;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.liumapp.booklet.restful.core.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.liumapp.booklet.restful.core.db.entity.Users;
 import com.liumapp.booklet.restful.core.util.UserUtil;
 
 import javax.servlet.*;
@@ -48,7 +50,7 @@ public class UserFilter implements Filter {
 
     private void fillUserInfo(HttpServletRequest request) {
         // 用户信息
-        String user = getUserFromSession(request);
+        Users user = JSON.parseObject(getUserFromSession(request), Users.class);
 
         if (user != null) {
             UserUtil.setUser(user);

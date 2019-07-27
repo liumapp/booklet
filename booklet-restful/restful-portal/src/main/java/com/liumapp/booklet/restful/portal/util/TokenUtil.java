@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.liumapp.booklet.restful.core.db.entity.Users;
+import com.liumapp.booklet.restful.core.exceptions.NoPermissionException;
+import com.liumapp.booklet.restful.core.exceptions.UnLegalTokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -86,14 +88,16 @@ public class TokenUtil {
      * 获取adminId
      * @return
      */
-    public Long getAdminId() {
+    public Users getUsers() {
         try {
             DecodedJWT jwt = JWT.decode(this.getToken());
             System.out.println(jwt.getExpiresAt());
-            return jwt.getClaim("id").asLong();
+            Users users = new Users();
+            users.setId(jwt.getClaim("id").asInt());
+            users.setPhone(jwt.getClaim("phone").asString());
+            return users;
         } catch (JWTDecodeException e) {
-            log.error("error：{}", e.getMessage());
-            return 1l;
+            throw new UnLegalTokenException();
         }
     }
 
