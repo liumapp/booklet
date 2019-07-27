@@ -54,10 +54,10 @@ public class TokenUtil {
      */
     public Boolean checkToken(Users users) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(emergencyAdmin.getPassword());
+            Algorithm algorithm = Algorithm.HMAC256(users.getPhone());
             JWTVerifier jwtVerifier = JWT.require(algorithm)
-                    .withClaim("username",emergencyAdmin.getPhone())
-                    .withClaim("id",emergencyAdmin.getId())
+                    .withClaim("phone",users.getPhone())
+                    .withClaim("id",users.getId())
                     .build();
             jwtVerifier.verify(getToken());
         } catch (Exception e) {
