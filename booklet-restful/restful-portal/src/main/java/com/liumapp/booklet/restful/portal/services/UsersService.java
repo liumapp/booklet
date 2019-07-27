@@ -3,6 +3,7 @@ package com.liumapp.booklet.restful.portal.services;
 import com.liumapp.booklet.restful.core.db.entity.Users;
 import org.springframework.stereotype.Service;
 
+import static com.liumapp.booklet.restful.core.util.CheckUtil.*;
 /**
  * file UsersService.java
  * author liumapp
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UsersService {
+
+
 
     public String generateUserToken (Users users) {
 
