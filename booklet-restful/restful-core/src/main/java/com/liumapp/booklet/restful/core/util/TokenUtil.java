@@ -5,24 +5,28 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.liumapp.booklet.restful.core.db.entity.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
- * file JWTUtils.java
+ * file TokenUtil.java
  * author liumapp
  * github https://github.com/liumapp
  * email liumapp.com@gmail.com
  * homepage http://www.liumapp.com
  * date 2019/7/27
  */
+@Component
 @Slf4j
-public class JWTUtils {
+public class TokenUtil {
+
     /**
-     * 默认token有效时间30分钟
+     * 默认token有效时间两小时
      */
     private final static Long TOKEN_EXPIRESE = 120 * 60 * 1000L;
 
@@ -30,35 +34,32 @@ public class JWTUtils {
     private HttpServletRequest request;
 
     /**
-     * 生成token
-     * @param userName 用户名
-     * @param secret 密码
-     * @return
+     * 获取登录token
+     * @param users
      */
-    public static String generalToken(String userName,String secret) {
+    public String generateToken(Users users){
         Date date = new Date(System.currentTimeMillis() + TOKEN_EXPIRESE);
-        Algorithm algorithm = Algorithm.HMAC256(secret);
+        Algorithm algorithm = Algorithm.HMAC256(users.getPhone());
 
         return JWT.create()
-                .withClaim("username", userName)
+                .withClaim("phone", users.getPhone())
+                .withClaim("id",users.getId())
                 .withExpiresAt(date)
                 .sign(algorithm);
     }
 
+
     /**
      * 校验token合法性会自动校验是否过期
-     * @param token
-     * @param userName
-     * @param secret
-     * @return
      */
-    public static Boolean checkToken(String token,String userName,String secret) {
+    public Boolean checkToken(Users users) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(emergencyAdmin.getPassword());
             JWTVerifier jwtVerifier = JWT.require(algorithm)
-                    .withClaim("username",userName)
+                    .withClaim("username",emergencyAdmin.getPhone())
+                    .withClaim("id",emergencyAdmin.getId())
                     .build();
-            jwtVerifier.verify(token);
+            jwtVerifier.verify(getToken());
         } catch (Exception e) {
             log.error("token is invalid{}", e.getMessage());
             return false;
@@ -70,14 +71,29 @@ public class JWTUtils {
      * 解析token 获取username
      * @return
      */
-    public static String getUserName(String token) {
+    public  String getUserName() {
         try {
-            DecodedJWT jwt = JWT.decode(token);
+            DecodedJWT jwt = JWT.decode(this.getToken());
             System.out.println(jwt.getExpiresAt());
             return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
             log.error("error：{}", e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * 获取adminId
+     * @return
+     */
+    public Long getAdminId() {
+        try {
+            DecodedJWT jwt = JWT.decode(this.getToken());
+            System.out.println(jwt.getExpiresAt());
+            return jwt.getClaim("id").asLong();
+        } catch (JWTDecodeException e) {
+            log.error("error：{}", e.getMessage());
+            return 1l;
         }
     }
 
