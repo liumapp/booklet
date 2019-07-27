@@ -1,5 +1,10 @@
 package com.liumapp.booklet.restful.portal.controller;
 
+import com.liumapp.booklet.restful.core.beans.ResultBean;
+import com.liumapp.booklet.restful.core.db.entity.Users;
+import com.liumapp.booklet.restful.portal.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +29,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    
+    @Autowired
+    private UsersService usersService;
+
+    @RequestMapping("")
+    public ResultBean<String> login (@RequestBody Users users) {
+        ResultBean<String> resultBean = new ResultBean<>();
+
+        String token = usersService.generateUserToken(users);
+        usersService.saveUserInfoToThreadLocal(users);
+
+        resultBean.setData(token);
+        return resultBean;
+    }
 
 }
