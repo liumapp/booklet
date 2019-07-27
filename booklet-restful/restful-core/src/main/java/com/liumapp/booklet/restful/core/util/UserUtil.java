@@ -32,10 +32,11 @@ public class UserUtil {
 
     public static final String KEY_USER = "user";
 
-    public static void setUser(String userid) {
-        tlUser.set(userid);
+    public static void setUser(Users user) {
+        String userJson = JSON.toJSONString(user);
+        tlUser.set(userJson);
         // 把用户信息放到log4j
-        MDC.put(KEY_USER, userid);
+        MDC.put(KEY_USER, userJson);
     }
 
     /**
@@ -43,8 +44,13 @@ public class UserUtil {
      *
      * @return
      */
-    public static String getUserIfLogin() {
-        return tlUser.get();
+    public static Users getUserIfLogin() {
+        String userJson = tlUser.get();
+        if (userJson == null) {
+            return null;
+        } else {
+            return JSON.parseObject(tlUser.get(), Users.class);
+        }
     }
 
     /**
