@@ -15,6 +15,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Locale;
+
 import static com.liumapp.booklet.restful.core.util.UserUtil.*;
 
 /**
@@ -55,6 +57,8 @@ public class TokenAOP {
 
             Users users = tokenUtils.getUsers();
             setUser(users);
+            //统一设置为中文
+            setLocale(Locale.CHINESE);
             //token 校验合法性
             if (!tokenUtils.checkToken(users)) {
                 throw new UnLegalTokenException();

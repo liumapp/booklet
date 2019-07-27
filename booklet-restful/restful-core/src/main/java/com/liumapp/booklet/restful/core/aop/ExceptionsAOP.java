@@ -5,12 +5,15 @@ import com.liumapp.booklet.restful.core.exceptions.CheckException;
 import com.liumapp.booklet.restful.core.exceptions.NoPermissionException;
 import com.liumapp.booklet.restful.core.exceptions.UnLegalTokenException;
 import com.liumapp.booklet.restful.core.exceptions.UnLoginException;
+import com.liumapp.booklet.restful.core.util.UserUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +36,9 @@ import org.springframework.stereotype.Component;
 public class ExceptionsAOP {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionsAOP.class);
+
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * 要求所有Controller统一返回ResultBean格式的对象
@@ -87,7 +93,7 @@ public class ExceptionsAOP {
         }
         // 没有登陆
         else if (e instanceof UnLoginException) {
-            result.setMsg("Unlogin");
+            result.setMsg(messageSource.getMessage("account.need.login", null, UserUtil.getLocale()));
             result.setCode(ResultBean.NO_LOGIN);
         }
         // 没有权限
