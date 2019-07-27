@@ -1,4 +1,4 @@
-package com.liumapp.booklet.restful.portal.config;
+package com.liumapp.booklet.restful.portal.aop;
 
 import com.liumapp.booklet.restful.core.annotations.UnTokenChk;
 import com.liumapp.booklet.restful.core.db.entity.Users;
@@ -15,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import static com.liumapp.booklet.restful.core.util.UserUtil.*;
 
 /**
  * file TokenAOP.java
@@ -53,6 +54,7 @@ public class TokenAOP {
             }
 
             Users users = tokenUtils.getUsers();
+            setUser(users);
             //token 校验合法性
             if (!tokenUtils.checkToken(users)) {
                 throw new UnLegalTokenException();
