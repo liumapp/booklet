@@ -1,7 +1,9 @@
 package com.liumapp.booklet.restful.portal.services;
 
 import com.liumapp.booklet.restful.core.db.entity.ProductA;
+import com.liumapp.booklet.restful.core.db.entity.Users;
 import com.liumapp.booklet.restful.core.db.mapper.ProductAMapper;
+import com.liumapp.booklet.restful.core.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class ProductAService {
         //todo 当前情况下，查询列表暂无参数需要
 
         //检验通过打印参数
+        Users users = UserUtil.getUser();
         logger.info("get all productA info start...");
         List<ProductA> data = mapper.selectList(null);
         logger.info("get all productA info end, dataSize:{}", data.size());

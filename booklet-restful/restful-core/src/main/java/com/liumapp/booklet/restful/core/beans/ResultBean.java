@@ -33,6 +33,11 @@ public class ResultBean<T> implements Serializable {
 	public static final int NO_PERMISSION = 10011;
 
 	/**
+	 * 账号token已经失效
+	 */
+	public static final int TOKEN_EXPIRED = 10012;
+
+	/**
 	 * 检查参数出现错误
 	 */
 	public static final int CHECK_FAIL = 10100;

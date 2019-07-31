@@ -1,5 +1,7 @@
 package com.liumapp.booklet.restful.core.util;
 
+import com.alibaba.fastjson.JSON;
+import com.liumapp.booklet.restful.core.db.entity.Users;
 import com.liumapp.booklet.restful.core.exceptions.UnLoginException;
 import org.slf4j.MDC;
 
@@ -30,10 +32,11 @@ public class UserUtil {
 
     public static final String KEY_USER = "user";
 
-    public static void setUser(String userid) {
-        tlUser.set(userid);
+    public static void setUser(Users user) {
+        String userJson = JSON.toJSONString(user);
+        tlUser.set(userJson);
         // 把用户信息放到log4j
-        MDC.put(KEY_USER, userid);
+        MDC.put(KEY_USER, userJson);
     }
 
     /**
@@ -41,8 +44,13 @@ public class UserUtil {
      *
      * @return
      */
-    public static String getUserIfLogin() {
-        return tlUser.get();
+    public static Users getUserIfLogin() {
+        String userJson = tlUser.get();
+        if (userJson == null) {
+            return null;
+        } else {
+            return JSON.parseObject(tlUser.get(), Users.class);
+        }
     }
 
     /**
@@ -50,8 +58,9 @@ public class UserUtil {
      *
      * @return
      */
-    public static String getUser() {
-        String user = tlUser.get();
+    public static Users getUser() {
+        String userJson = tlUser.get();
+        Users user = JSON.parseObject(userJson, Users.class);
 
         if (user == null) {
             throw new UnLoginException();
