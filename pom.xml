@@ -51,7 +51,6 @@
     <module>booklet-concurrent</module>
     <module>booklet-docker</module>
     <module>booklet-restful</module>
-    <module>booklet-sba</module>
   </modules>
 
   <build>
