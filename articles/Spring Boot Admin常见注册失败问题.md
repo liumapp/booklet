@@ -230,7 +230,58 @@ volumes:
       
 ## 注册成功但信息显示不全
 
-## 
+偶尔也会遇到这种情况：Spring Boot Admin客户端注册服务端是成功的，但是统计页面显示的数据过少（可能只有日志这一栏）
 
+造成这种问题的原因在于：我们没有开放客户端的actuator接口地址给服务端访问
 
+那么解决办法也很简单，允许服务端访问actuator即可
 
+首先我们需要确保项目有actuator依赖(一般来说，spring-boot-admin-starter-client本身就包含这个依赖，所以不需要额外引入)：
+
+````mxml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+````
+
+然后打开actuator的端口，在client端的配置文件中增加以下内容：
+
+````yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+````
+
+同时考虑到client与server域名存在不一样的情况，顺便把跨域也解决掉，增加跨域配置类：
+
+````java
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * @author liumapp
+ * @file CorsConfig.java
+ * @email liumapp.com@gmail.com
+ * @homepage http://www.liumapp.com
+ * @date 2018/8/11
+ */
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+   
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedHeaders("*")
+                .allowedOrigins("*")
+                .allowedMethods("*");
+
+    }
+}
+````
+
+问题即可解决
