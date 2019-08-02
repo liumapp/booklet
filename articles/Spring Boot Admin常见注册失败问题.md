@@ -204,8 +204,14 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 
 ## 注册成功但无法显示日志
 
+这个问题产生原因有两种
+
+* 客户端日志没有以文件形式存储下来
+
+* 客户端容器化部署后，日志文件没有映射到宿主机磁盘上
 
 
+      
 ## 注册成功但信息显示不全
 
 ## 
