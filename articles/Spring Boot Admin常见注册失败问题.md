@@ -24,7 +24,7 @@
  
 第一种问题的解决办法:
 
-必须在客户端配置boot.admin.client.instance.service-url属性，让Spring Boot Admin服务端可以通过网络获取客户端的数据
+必须在客户端配置boot.admin.client.instance.service-url属性，让Spring Boot Admin服务端可以通过网络获取客户端的数据（否则默认会通过主机名去获取）
 
 ````yaml
   boot:
@@ -153,14 +153,58 @@ public class AdminServerProperties {
 
 ### 客户端配置
 
+首先对于客户端，我们除了Spring Boot Admin Client依赖外，还需要额外引入 Spring Security依赖:
 
+````xml
+<dependency>
+    <groupId>de.codecentric</groupId>
+    <artifactId>spring-boot-admin-starter-client</artifactId>
+    <version>2.0.2</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+````
 
+在此基础上通过编写客户端application.yml配置文件来设置账号密码
 
+````yaml
+spring:
+  boot:
+    admin:
+      client:
+        url: ${your sba server url}
+        username: ${your sba username}
+        password: ${your sba password}
+        instance:
+          service-base-url: ${your client url}
+````
 
+接下来对Client端的Spring Security做配置，允许Server端读取actuator暴露的数据
 
+添加一个配置类:
 
+````java
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().permitAll()
+                .and().csrf().disable();
+    }
+}
+````
+
+到此，因为安全验证而不能注册成功的问题便可以解决
 
 ## 注册成功但无法显示日志
+
+
 
 ## 注册成功但信息显示不全
 
