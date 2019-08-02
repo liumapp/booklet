@@ -210,8 +210,27 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 
 * 客户端容器化部署后，日志文件没有映射到宿主机磁盘上
 
+针对第一种情况，解决办法比较简单，将系统产生的日志以文件形式保存即可:
 
+````yaml
+logging:
+  file: ./log/client.log
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"      
+````
+
+第二种情况较为复杂，首先要分清除是用什么工具来部署容器的，但一般而言直接通过文件映射即可
+
+这里以docker为例，在docker内通过设置volumes来映射日志文件
+
+````yaml
+volumes:
+  - ./log:/client/log/
+````
       
 ## 注册成功但信息显示不全
 
 ## 
+
+
+
