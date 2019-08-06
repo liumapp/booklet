@@ -20,9 +20,12 @@ public class BookletRedisMainTest {
     @Test
     public void leftPushTest () {
         List<String> list = new ArrayList<>();
-        list.add("hello world2");
 
-        listOperations.leftPush("listKey", list.toString());
+        list.add("hello world");
+        listOperations.leftPush("listKey", list);
+
+//        list.add("hello world2");
+//        listOperations.leftPush("listKey", list.toString());
     }
 
 }
