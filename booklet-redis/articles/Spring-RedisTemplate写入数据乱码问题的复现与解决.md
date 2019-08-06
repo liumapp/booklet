@@ -234,3 +234,5 @@ public void leftPushTest () {
 不建议更换redisTemplate默认的序列化策略，有乱码就让它乱着吧，反正知道正确的解码策略就不会影响程序的正常运行（不过通过php等其他语言去获取redis的值貌似不太好解决）
 
 如果一定要更换策略，那么前往要注意，存储数据的类型要根据所选择的序列化策略去进行切换
+
+项目案例源代码：[github/booklet-redis](https://github.com/liumapp/booklet/tree/master/booklet-redis)
