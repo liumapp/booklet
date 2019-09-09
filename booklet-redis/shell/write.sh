@@ -15,11 +15,11 @@ echo '.'
 echo '假设 127.0.0.1:6379 存在redis服务'
 echo '现在这个脚本将开始对redis写入一千万条数据'
 
-n = 10000000
-for ((i = n; i >= 1; i--))
+n=10000000
+for ((i=n; i>=1; i--))
 do
     echo ${i}
-    redis-cli set key${i} value${i}
+    redis-cli -a adminadmin set key${i} value${i}
 done
 
 
