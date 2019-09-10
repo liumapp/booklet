@@ -116,7 +116,17 @@ dir /data/
               - ./redis_data/:/data/
     ````
     
-*     
+* 修改redis配置文件，使AOF生效，并关闭RDB
+
+    这里将上面的redis.conf内容复制替换到./redis_config/redis.conf文件中即可
+    
+* 启动redis服务，并观察redis_data目录下是否有appendonly.aof文件生成，有生成，则证明备份成功
+
+    另外我们可以发现，3百万条数据（700M）的备份文件，其实际占用磁盘空间约为170M，这便是Redis重写机制强大的地方
+    
+* 数据恢复的话，我们不需要做其他操作，只要确保该appendonly.aof存在，redis便会自动去读取其中的数据
+
+
 
 ## 总结
 
