@@ -1,12 +1,22 @@
 @startuml
-(*) --> "Initialization"
 
-if "Some Test" then
-  -->[true] "Some Activity"
-  --> "Another activity"
-  -right-> (*)
-else
-  ->[false] "Something else"
-  -->[Ending process] (*)
-endif
+database redis as "Redis主进程"
+participant children as "后台子进程"
+collections c1 as "AOF重写缓冲区"
+collections c2 as "AOF缓冲区"
+actor a1 as "旧的AOF文件"
+actor a2 as "新的AOF文件"
+
+redis -> children : 1. Fork创建
+redis -> c1 : 2. 启用
+redis -> c1 : 3. 写入新的写任务
+redis -> c2 : 3. 写入新的写任务
+children -> a2 : 4. 创建
+children -> redis : 5. 通知：重写AOF成功
+c2 -> a1 : 6. 追加新的写任务
+c1 -> a2 : 6. 追加新的写任务
+a2 -> a1 : 7. 替换
+
+
+
 @enduml
