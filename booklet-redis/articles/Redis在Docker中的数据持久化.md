@@ -46,7 +46,7 @@ AOF 持久化会将被执行的写命令写到 AOF 文件的末尾，以此来�
 要启用AOF（并关闭RDB），我们需要修改Redis的配置文件(./redis_config/redis.conf)：
 
 ````
-save 60 1000
+#save 60 1000
 stop-writes-on-bgsave-error no
 rdbcompression no
 dbfilename dump.rdb
@@ -96,7 +96,27 @@ dir /data/
 
 ### AOF-Docker实操
 
+* 通过docker-compose启动Redis容器
 
+    docker-compose.yml配置如下
+    
+    ````yaml
+        version: "2"
+        services:
+          redis:
+            image: 'redis:3.2.11'
+            restart: always
+            hostname: redis
+            container_name: redis
+            ports:
+              - '6379:6379'
+            command: redis-server /usr/local/etc/redis/redis.conf
+            volumes:
+              - ./redis_config/redis.conf:/usr/local/etc/redis/redis.conf
+              - ./redis_data/:/data/
+    ````
+    
+*     
 
 ## 总结
 
