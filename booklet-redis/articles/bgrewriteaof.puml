@@ -1,18 +1,12 @@
-/**
- * file bgrewriteaof.puml
- * author liumapp
- * github https://github.com/liumapp
- * email liumapp.com@gmail.com
- * homepage http://www.liumapp.com
- * date 2019/9/10
- */
 @startuml
-(*)  --> "check input"
-If "input is verbose" then
---> [Yes] "turn on verbosity"
---> "run command"
+(*) --> "Initialization"
+
+if "Some Test" then
+  -->[true] "Some Activity"
+  --> "Another activity"
+  -right-> (*)
 else
---> "run command"
-Endif
--->(*)
+  ->[false] "Something else"
+  -->[Ending process] (*)
+endif
 @enduml
