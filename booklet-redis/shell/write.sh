@@ -20,7 +20,7 @@ n=10000000
 for ((i=n; i>=1; i--))
 do
     echo ${i}
-    redis-cli -a adminadmin set key${i} value${i}
+    redis-cli -a admin123 set key${i} value${i}
 done
 
 

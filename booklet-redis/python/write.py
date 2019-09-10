@@ -8,7 +8,7 @@
 #
 import redis
 
-r = redis.Redis(host="127.0.0.1", port=6379, db=0, password="adminadmin")
+r = redis.Redis(host="127.0.0.1", port=6379, db=0, password="admin123")
 print("开始插入三百万条数据，每10万条数据提交一次批处理")
 with r.pipeline(transaction=True) as p:
     value = 0
