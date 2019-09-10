@@ -1,5 +1,7 @@
 # Redis在Docker中的数据持久化
 
+项目Github地址：[github/booklet](https://github.com/liumapp/booklet/tree/master/booklet-redis)
+
 Redis 提供了两种不同的持久化方法来将数据存储到硬盘里面。一种方法叫快照（snapshotting，RDB），它可以将存在于某一时刻的所有数据都写入硬盘里面。
 
 另一种方法叫只追加文件（append-only file，AOF），它会在执行写命令时，将被执行的写命令复制到硬盘里面。
@@ -35,17 +37,21 @@ with r.pipeline(transaction=True) as p:
 
 ## RDB
 
+
+
 ### RDB配置说明
 
 ### RDB-Docker实操
 
 ## AOF
 
-AOF 持久化会将被执行的写命令写到 AOF 文件的末尾，以此来记录数据发生的变化。因此，Redis 只要从头到尾重新执行一次AOF 文件包含的所有写命令，就可以恢复AOF文件所记录的数据集。
+AOF持久化会将被执行的写命令写到 AOF 文件的末尾，以此来记录数据发生的变化。因此，Redis 只要从头到尾重新执行一次AOF 文件包含的所有写命令，就可以恢复AOF文件所记录的数据集。
 
 要启用AOF（并关闭RDB），我们需要修改Redis的配置文件(./redis_config/redis.conf)：
 
 ````
+requirepass admin123
+
 #save 60 1000
 stop-writes-on-bgsave-error no
 rdbcompression no
@@ -88,11 +94,29 @@ dir /data/
 
 * auto-aof-rewrite-min-size：需要压缩的文件达到多少时开始执行
 
-    auto-aof-rewrite-percentage跟auto-aof-rewrite-min-size需要配套使用，比如当我们设置auto-aof-rewrite-percentage为100，设置auto-aof-rewrite-min-size为64mb时，redis会在AOF产生的文件比64M大时，才执行压缩
+    auto-aof-rewrite-percentage跟auto-aof-rewrite-min-size需要配套使用，比如当我们设置auto-aof-rewrite-percentage为100，设置auto-aof-rewrite-min-size为64mb时
+    
+    redis会在AOF产生的文件比64M大时，并且AOF文件的体积比上一次重写之后至少增大了一倍（100%）才执行BGREWRITEAOF重写命令
+    
+    如果觉得AOF重写执行得过于频繁，我们可以把auto-aof-rewrite-percentage设置100以上，比如200，就可以降低重写频率
     
     这里可以参考Redis的官方手册，写的非常清楚：[https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/](https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/)
 
 * dir：备份文件存放目录
+
+### AOF重写机制
+
+在上面的配置中，已经通过auto-aof-rewrite-percentage和auto-aof-rewrite-min-size两个参数，简单介绍了Redis的BGREWRITEAOF重写命令
+
+但在实际的使用中，我们需要非常小心，不能让Redis的重写命令执行的过于频繁 **注意：auto-aof-rewrite-percentage的单位是百分比，值越大，重写频率越低，也千万别出现0这种值**
+
+因为BGREWRITEAOF的工作原理和BGSAVE创建快照的工作原理非常相似：Redis会创建一个子进程，然后由子进程负责对AOF 文件进行重写
+
+因为AOF文件重写也需要用到子进程，所以快照持久化因为创建子进程而导致的性能问题和内存占用问题，在AOF持久化中也同样存在
+
+BGREWRITEAOF的工作流程如下所示：
+
+
 
 ### AOF-Docker实操
 
@@ -116,6 +140,8 @@ dir /data/
               - ./redis_data/:/data/
     ````
     
+    我将Docker容器中的redis服务所产生的备份文件，映射在宿主机的./redis_data目录下
+    
 * 修改redis配置文件，使AOF生效，并关闭RDB
 
     这里将上面的redis.conf内容复制替换到./redis_config/redis.conf文件中即可
@@ -126,12 +152,13 @@ dir /data/
     
 * 数据恢复的话，我们不需要做其他操作，只要确保该appendonly.aof存在，redis便会自动去读取其中的数据
 
-
-
 ## 总结
 
+虽然RDB跟AOF都可以确保Redis的数据持久化，但光是这样还是不够的
 
+对于一个需要支持可扩展的分布式平台而言，我们还需要提供一套复制备份机制，允许在一个周期内，自动将AOF或者RDB的文件备份到不同的服务器下
 
+这种情况下，我们就需要使用Redis的复制并生成数据副本功能，具体内容我会在下一篇文章进行实操记录
 
 ## 参考链接
 
