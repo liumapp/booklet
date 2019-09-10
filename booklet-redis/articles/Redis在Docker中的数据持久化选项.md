@@ -12,7 +12,10 @@ services:
     container_name: redis
     ports:
       - '6379:6379'
-    command: redis-server --requirepass adminadmin
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis_config/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis_data/:/data/
 ````
 
 ## 
