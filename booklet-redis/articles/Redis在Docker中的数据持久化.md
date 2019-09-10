@@ -35,37 +35,75 @@ with r.pipeline(transaction=True) as p:
 
 ## RDB
 
+### RDB配置说明
 
+### RDB-Docker实操
 
 ## AOF
 
-````yaml
-version: "2"
-services:
-  redis:
-    image: 'redis:3.2.11'
-    restart: always
-    hostname: redis
-    container_name: redis
-    ports:
-      - '6379:6379'
-    command: redis-server /usr/local/etc/redis/redis.conf
-    volumes:
-      - ./redis_config/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis_data/:/data/
+AOF 持久化会将被执行的写命令写到 AOF 文件的末尾，以此来记录数据发生的变化。因此，Redis 只要从头到尾重新执行一次AOF 文件包含的所有写命令，就可以恢复AOF文件所记录的数据集。
+
+要启用AOF（并关闭RDB），我们需要修改Redis的配置文件(./redis_config/redis.conf)：
+
+````
+save 60 1000
+stop-writes-on-bgsave-error no
+rdbcompression no
+dbfilename dump.rdb
+
+appendonly yes
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+dir /data/
 ````
 
-## 
+### AOF配置说明
+
+* appendonly: 是否启用AOF 
+
+    * yes: 启用AOF
+    
+    * no: 关闭AOF
+    
+* appendfsync: 启用AOF后的数据同步频率
+
+    * alaways: 每个Redis写命令都要同步写入硬盘。这样做会严重降低Redis 的速度 （不建议）
+    
+    * everysec: 每秒执行一次同步，显式地将多个写命令同步到硬盘 （推荐，对性能没有太大影响）
+    
+    * no: 让操作系统来决定应该何时进行同步。（不建议）
+    
+        Redis将不对AOF文件执行任何显式的同步操作，如果用户的硬盘处理写入操作的速度不够快的话，那么当缓冲区被等待写入硬盘的数据填满时，Redis的写入操作将被阻塞，并导致Redis处理命令请求的速度变慢        
+
+* no-appendfsync-on-rewrite：在对AOF进行压缩（也被称为重写机制）的时候能否执行同步操作
+
+    * yes: 不允许
+    
+    * no: 允许
+
+* auto-aof-rewrite-percentage：多久执行一次AOF压缩，单位是百分比
+
+* auto-aof-rewrite-min-size：需要压缩的文件达到多少时开始执行
+
+    auto-aof-rewrite-percentage跟auto-aof-rewrite-min-size需要配套使用，比如当我们设置auto-aof-rewrite-percentage为100，设置auto-aof-rewrite-min-size为64mb时，redis会在AOF产生的文件比64M大时，才执行压缩
+    
+    这里可以参考Redis的官方手册，写的非常清楚：[https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/](https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/)
+
+* dir：备份文件存放目录
+
+### AOF-Docker实操
+
+
+
+## 总结
 
 
 
 
+## 参考链接
 
-
-
-
-
-
-
-
+* https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance
 
