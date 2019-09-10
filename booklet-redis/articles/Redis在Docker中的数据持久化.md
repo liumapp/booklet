@@ -142,7 +142,7 @@ dir /data/
 
 BGREWRITEAOF的工作流程图如下所示**(绘图源代码在项目的./articles/bgrewriteaof.puml文件下)**：
 
-
+![bgrewriteaof.png](https://github.com/liumapp/booklet/blob/master/booklet-redis/articles/bgrewriteaof.png?raw=true)
 
 
 ### AOF-Docker实操
