@@ -62,9 +62,17 @@ dir /data/
 
 ### RDB配置说明
 
+上述配置中与RDB相关的配置如下
+
 * save: 多久执行一次自动快照操作
 
-* stop-writes-on-bgsave-error: 
+* stop-writes-on-bgsave-error: 在创建快照失败后是否仍然继续执行写命令 
+
+* rdbcompression: 是否对快照文件进行压缩
+
+* dbfilename: 快照文件名
+
+* dir: 快照文件存放目录
 
 ### RDB-Docker实操
 
@@ -94,6 +102,8 @@ dir /data/
 上述配置会通过docker-compose的配置，映射到Redis容器中并启用，具体在下面的实操中介绍
 
 ### AOF配置说明
+
+上述配置中与AOF相关的配置如下
 
 * appendonly: 是否启用AOF 
 
