@@ -37,17 +37,42 @@ with r.pipeline(transaction=True) as p:
 
 ## RDB
 
+RDB持久化是通过创建快照来获得数据副本，即简单粗暴的保存键值对数据内容
 
+要启用RDB（并关闭AOF），我们需要修改Redis的配置文件(./redis_config/redis.conf):
+
+````
+requirepass admin123
+
+save 60 1000
+stop-writes-on-bgsave-error no
+rdbcompression no
+dbfilename dump.rdb
+
+appendonly no
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+dir /data/
+````
+
+上述配置会通过docker-compose的配置，映射到Redis容器中并启用，具体在下面的实操中介绍
 
 ### RDB配置说明
+
+* save: 多久执行一次自动快照操作
+
+* stop-writes-on-bgsave-error: 
 
 ### RDB-Docker实操
 
 ## AOF
 
-AOF持久化会将被执行的写命令写到 AOF 文件的末尾，以此来记录数据发生的变化。因此，Redis 只要从头到尾重新执行一次AOF 文件包含的所有写命令，就可以恢复AOF文件所记录的数据集。
+AOF持久化会将被执行的写命令写到AOF文件的末尾，以此来记录数据发生的变化。因此，Redis 只要从头到尾重新执行一次AOF 文件包含的所有写命令，就可以恢复AOF文件所记录的数据集。
 
-要启用AOF（并关闭RDB），我们需要修改Redis的配置文件(./redis_config/redis.conf)：
+要启用AOF（并关闭RDB），我们需要修改Redis的配置文件(./redis_config/redis.conf)
 
 ````
 requirepass admin123
@@ -65,6 +90,8 @@ auto-aof-rewrite-min-size 64mb
 
 dir /data/
 ````
+
+上述配置会通过docker-compose的配置，映射到Redis容器中并启用，具体在下面的实操中介绍
 
 ### AOF配置说明
 
