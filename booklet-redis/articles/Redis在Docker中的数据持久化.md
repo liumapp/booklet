@@ -37,7 +37,7 @@ with r.pipeline(transaction=True) as p:
 
 ## RDB
 
-RDB持久化是通过创建快照来获得数据副本，即简单粗暴的保存键值对数据内容
+RDB持久化是通过创建快照来获得数据副本，即简单粗暴的直接保存键值对数据内容
 
 要启用RDB（并关闭AOF），我们需要修改Redis的配置文件(./redis_config/redis.conf):
 
@@ -66,15 +66,83 @@ dir /data/
 
 * save: 多久执行一次自动快照操作
 
+    比如设置为 ```save 60 1000``` ，那么就表示在60秒之内，如果有1000次写入的话，Redis就会自动触发BGSAVE命令
+    
+    一般来说，我们都会希望Redis可以有一个固定的周期来创建快照，那么可以这样设置
+    
+    ```save 900 1``` ，意思就是让Redis服务器每隔900秒，并且至少执行了一次写入操作后，就触发BGSAVE指令
+
 * stop-writes-on-bgsave-error: 在创建快照失败后是否仍然继续执行写命令 
 
 * rdbcompression: 是否对快照文件进行压缩
+
+    * yes: 开启，这种情况下，Redis会采用LZF算法对rdb文件进行压缩
+    
+    * no: 关闭
 
 * dbfilename: 快照文件名
 
 * dir: 快照文件存放目录
 
+### RDB触发条件
+
+RDB的触发条件会比AOF麻烦，大致可以分为以下几种：
+
+* 通过redis-cli等客户端直接发送指令: ```BGSAVE```
+
+    BGSAVE指令，会让Redis调用fork创建一个子进程在后台运行，子进程将会负责创建快照到磁盘中
+
+    在演示案例中，启动redis的docker容器后，在redis-cli中输入 ```BGSAVE``` 后，能够在./redis_data目录下生成一个temp-17.rdb文件（或者其他以rdb结尾的）
+
+* 通过redis-cli等客户端直接发送指令：```SAVE```
+
+    SAVE指令**（注意跟配置中的save没有半毛钱关系）**，会让Redis主进程直接开始创建快照，但在创建快照的过程中，Redis不会响应其他命令请求
+    
+    在演示案例中，启动redis的docker容器后，在redis-cli中输入 ```SAVE``` 后，能够在./redis_data目录下生成一个temp-17.rdb文件（或者其他以rdb结尾的）
+    
+* 通过配置项```save```进行触发
+
+    具体请参照上文的参数说明
+
+* 通过SHUTDOWN命令关闭Redis服务器时，Redis会自动触发一个SAVE指令
+
+* 通过标准TERM信号kill掉Redis服务时，Redis也会自动触发一个SAVE指令
+
+* 通过Redis主从服务器的复制请求
+
+    主服务器收到从服务器的复制请求时，会触发一次BGSAVE指令(当且仅当主服务器没有子进程在执行BGSAVE)
+       
 ### RDB-Docker实操
+
+* 通过docker-compose启动Redis容器
+
+    docker-compose.yml配置如下
+    
+    ````yaml
+        version: "2"
+        services:
+          redis:
+            image: 'redis:3.2.11'
+            restart: always
+            hostname: redis
+            container_name: redis
+            ports:
+              - '6379:6379'
+            command: redis-server /usr/local/etc/redis/redis.conf
+            volumes:
+              - ./redis_config/redis.conf:/usr/local/etc/redis/redis.conf
+              - ./redis_data/:/data/
+    ````
+    
+    我将Docker容器中的redis服务所产生的备份文件，映射在宿主机的./redis_data目录下
+    
+* 修改redis配置文件，使AOF生效，并关闭RDB
+
+    这里将上面的redis.conf内容复制替换到./redis_config/redis.conf文件中即可
+    
+* 启动redis服务，并观察redis_data目录下是否有dump.rdb文件生成，有生成，则证明备份成功
+    
+* 数据恢复的话，我们不需要做其他操作，只要确保该dump.rdb存在，redis便会自动去读取其中的数据
 
 ## AOF
 
@@ -140,6 +208,10 @@ dir /data/
     这里可以参考Redis的官方手册，写的非常清楚：[https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/](https://redislabs.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-1-persistence-options/4-1-3-rewritingcompacting-append-only-files/)
 
 * dir：备份文件存放目录
+
+### AOF触发条件
+
+直接根据appendfsync的设置进行触发
 
 ### AOF重写机制
 
@@ -218,7 +290,13 @@ BGREWRITEAOF的工作流程图如下所示**(绘图源代码在项目的./articl
 
 ## 总结
 
-虽然RDB跟AOF都可以确保Redis的数据持久化，但光是这样还是不够的
+RDB跟AOF都可以确保Redis的数据持久化，但各有特点
+
+RDB因为有默认的指令SAVE跟BGSAVE支持，所以比较适合对数据库做全量备份，比如每天凌晨3点开始执行一次BGSAVE
+
+而AOF因为是保存的写命令，因而更适合实时备份，事实上现在企业应用也基本都是采用的AOF
+
+但光是使用了RDB或AOF、甚至两个一起用，也还是不够的
 
 对于一个需要支持可扩展的分布式平台而言，我们还需要提供一套复制备份机制，允许在一个周期内，自动将AOF或者RDB的文件备份到不同的服务器下
 
