@@ -14,13 +14,6 @@ python脚本代码:
 
 ````python
 # -*- coding: UTF-8 -*-
-# file write.py
-# author liumapp 
-# github https://github.com/liumapp
-# email liumapp.com@gmail.com
-# homepage http://www.liumapp.com 
-# date 2019/9/9
-#
 import redis
 
 r = redis.Redis(host="127.0.0.1", port=6379, db=0, password="admin123")
