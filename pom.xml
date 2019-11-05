@@ -54,6 +54,7 @@
     <module>booklet-redis</module>
     <module>booklet-basic</module>
     <module>booklet-design-pattern</module>
+    <module>booklet-spring</module>
   </modules>
 
   <build>

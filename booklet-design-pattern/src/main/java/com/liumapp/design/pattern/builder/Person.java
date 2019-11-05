@@ -23,18 +23,6 @@ public class Person {
     private String grade;//年纪
     private String clazz;//班级
 
-//    public Person(String name, int age, String height, String weight, String sex, String address, String nation, String grade, String clazz) {
-//        this.name = name;
-//        this.age = age;
-//        this.height = height;
-//        this.weight = weight;
-//        this.sex = sex;
-//        this.address = address;
-//        this.nation = nation;
-//        this.grade = grade;
-//        this.clazz = clazz;
-//    }
-
     private Person(Builder builder) {
         this.name = builder.name;
         this.age = builder.age;
@@ -57,6 +45,10 @@ public class Person {
 
     public Builder newBuilder() {
         return new Builder(this);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {

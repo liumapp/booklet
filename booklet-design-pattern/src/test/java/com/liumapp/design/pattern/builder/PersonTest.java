@@ -14,5 +14,8 @@ public class PersonTest {
         Person.Builder personBuilder = new Person.Builder();
         Person person = personBuilder.create();
         log.info(JSON.toJSONString(person));
+
+        Person zhangSan = Person.builder().setName("zhangsan").create();
+        log.info(JSON.toJSONString(zhangSan));
     }
 }
