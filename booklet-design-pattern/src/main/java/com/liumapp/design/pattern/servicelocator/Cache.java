@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * date 2019/11/6
  */
 @Slf4j
-public class Cache {
+class Cache {
 
     private Map<String, Service> services;
 
@@ -31,7 +31,8 @@ public class Cache {
                 return service.getValue();
             }
         }
-        throw new UnsupportedOperationException("not find service in cache: " + serviceName);
+        return null;
+//        throw new UnsupportedOperationException("not find service in cache: " + serviceName);
     }
 
     public void addService(Service newService){

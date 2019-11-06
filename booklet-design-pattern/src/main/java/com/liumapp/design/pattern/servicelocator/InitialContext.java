@@ -16,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 public class InitialContext {
 
     public Object lookup(String jndiName){
-        if (jndiName.equalsIgnoreCase(Service1.class.getName())){
+        if (jndiName.equalsIgnoreCase("SERVICE1")){
             System.out.println("Looking up and creating a new Service1 object");
             return new Service1();
-        } else if (jndiName.equalsIgnoreCase(Service2.class.getName())) {
+        } else if (jndiName.equalsIgnoreCase("SERVICE2")) {
             System.out.println("Looking up and creating a new Service2 object");
             return new Service2();
         }

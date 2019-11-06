@@ -15,7 +15,7 @@ public class Service2 implements Service {
 
     @Override
     public String getName() {
-        return this.getName();
+        return "Service2";
     }
 
     @Override
