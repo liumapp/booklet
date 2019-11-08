@@ -35,27 +35,4 @@ public class CustomProtocolEventAdapter extends EventBus implements Initializing
             this.register(abstractEventObsever);
     }
 
-    /**
-     * 终端消息基类
-     */
-    @Data
-    public static class  TeriminalMsgDispatchEvent <T extends ServerJTAbstractDataGram> extends TeriminalMsgEvent {
-
-        private T t;
-
-        private Boolean send;
-
-        public TeriminalMsgDispatchEvent(String terminalNo, String msgType, T t, Boolean send) {
-            super(terminalNo, msgType);
-            this.t = t;
-            this.send = send;
-        }
-
-        public TeriminalMsgDispatchEvent(T t, Boolean send) {
-            this.t = t;
-            this.send = send;
-        }
-    }
-
-
 }
