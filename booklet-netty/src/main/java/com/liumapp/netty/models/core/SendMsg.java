@@ -1,5 +1,7 @@
 package com.liumapp.netty.models.core;
 
+import io.netty.buffer.ByteBuf;
+
 /**
  * file SendMsg.java
  * author liumapp
@@ -16,6 +18,11 @@ public interface SendMsg {
      */
     public byte generateVerifyCode ();
 
+    /**
+     * 转义消息
+     * @return ByteBuf
+     */
+    public ByteBuf toByteBufMsg ();
 
 
 }
