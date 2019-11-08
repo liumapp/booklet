@@ -35,52 +35,7 @@ public class CustomProtocolEventAdapter extends EventBus implements Initializing
             this.register(abstractEventObsever);
     }
 
-    /**
-     * 终端心跳类
-     */
-    @Data
-    public static class HeartBeatEvent extends TeriminalConnectEvent {
-        public HeartBeatEvent() {
-        }
 
-        public HeartBeatEvent(String authCode, LocalDateTime localDateTime) {
-            super(authCode, localDateTime);
-        }
-    }
-
-    /**
-     * 终端注销类
-     */
-    @Data
-    public static class UnregisterEvent extends TeriminalConnectEvent {
-        public UnregisterEvent() {
-        }
-
-        public UnregisterEvent(String authCode, LocalDateTime localDateTime) {
-            super(authCode, localDateTime);
-        }
-    }
-
-    /**
-     * 认证事件
-     */
-    @Data
-    public static class AuthEvent extends TeriminalConnectEvent {
-        private TerminalChannelFactory.Terminal terminal;
-        private TerminalChannelFactory.Status status;
-
-        public AuthEvent(TerminalChannelFactory.Terminal terminal, TerminalChannelFactory.Status status) {
-            this.terminal = terminal;
-            this.status = status;
-            super.authCode = terminal.getAuthCode();
-        }
-
-        public AuthEvent(String authCode, LocalDateTime localDateTime, TerminalChannelFactory.Terminal terminal, TerminalChannelFactory.Status status) {
-            super(authCode, localDateTime);
-            this.terminal = terminal;
-            this.status = status;
-        }
-    }
 
     /**
      * 终端注册类
