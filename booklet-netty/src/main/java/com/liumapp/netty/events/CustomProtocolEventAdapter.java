@@ -35,40 +35,6 @@ public class CustomProtocolEventAdapter extends EventBus implements Initializing
             this.register(abstractEventObsever);
     }
 
-
-
-    /**
-     * 终端注册类
-     */
-    @Data
-    public static class RegisterEvent extends TeriminalConnectEvent {
-        private TerminalChannelFactory.Terminal terminal;
-        private TerminalChannelFactory.Status status;
-
-        public RegisterEvent(TerminalChannelFactory.Terminal terminal, TerminalChannelFactory.Status status) {
-            this.terminal = terminal;
-            this.status = status;
-            super.authCode = terminal.getAuthCode();
-        }
-
-        public RegisterEvent(String authCode, LocalDateTime localDateTime, TerminalChannelFactory.Terminal terminal, TerminalChannelFactory.Status status) {
-            super(authCode, localDateTime);
-            this.terminal = terminal;
-            this.status = status;
-        }
-    }
-
-    /**
-     * 终端消息基类
-     */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class TeriminalMsgEvent extends BaseEvent {
-        private String terminalNo;
-        private String msgType;
-    }
-
     /**
      * 终端消息基类
      */
