@@ -52,7 +52,7 @@
     <!--<module>booklet-docker</module>-->
     <!--<module>booklet-restful</module>-->
     <!--<module>booklet-redis</module>-->
-    <!--<module>booklet-basic</module>-->
+    <module>booklet-basic</module>
     <!--<module>booklet-design-pattern</module>-->
     <!--<module>booklet-spring</module>-->
     <!--<module>booklet-netty</module>-->
