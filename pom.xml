@@ -88,7 +88,7 @@
     <!--<module>booklet-design-pattern</module>-->
     <module>booklet-spring</module>
     <!--<module>booklet-netty</module>-->
-    <!--<module>booklet-kafka</module>-->
+    <module>booklet-kafka</module>
   </modules>
 
   <build>
