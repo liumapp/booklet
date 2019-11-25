@@ -22,7 +22,7 @@ import java.util.concurrent.PriorityBlockingQueue;
  * date 2019/11/21
  */
 @Slf4j
-public final class MissionDispatcher<T> {
+public final class AsyncMissionDispatcher<T> {
 
     // ============ 基本属性 ============
     private int maxProcessCount;
@@ -33,7 +33,13 @@ public final class MissionDispatcher<T> {
 
     private Function<List<T>, Boolean> batchProcess;
 
+    private MissionAdder<T> missionAdder;
+
     private Map<Long, PriorityBlockingQueue<T>> mapQueue = new HashMap<>();
+
+
+
+
 
 
 
