@@ -82,7 +82,7 @@ public class AsyncDispatcherBuilder<T, P> implements DispatcherBuilder {
             if (timeout != null && unit != null) {
                 this.missionAdder = new BlockingMissionAdder (timeout, unit);
             } else {
-                this.missionAdder = new KeepNewestMissionAdder ();
+                this.missionAdder = new KeepNewestMissionAdder (maxBufferSizePreProcess);
             }
         }
 

@@ -1,5 +1,7 @@
 package com.liumapp.booklet.basic.missions.demo1;
 
+import java.util.Comparator;
+
 /**
  * file MissionDispatcher.java
  * author liumapp
@@ -16,5 +18,9 @@ public interface MissionDispatcher <T> {
      * @param key long 取模
      */
     public void addMission (T t, Long key);
+
+    public void start(Comparator<T> comparable);
+
+    public void startBatch(Comparator<T> comparable);
 
 }

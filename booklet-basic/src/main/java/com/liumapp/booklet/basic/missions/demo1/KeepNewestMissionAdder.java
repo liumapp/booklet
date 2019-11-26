@@ -15,8 +15,18 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class KeepNewestMissionAdder <T> implements MissionAdder<T> {
 
-    @Override
-    public void add(PriorityBlockingQueue queue, Object o) {
-        
+    private int maxBufferSizePreProcess;
+
+    public KeepNewestMissionAdder(int maxBufferSizePreProcess) {
+        this.maxBufferSizePreProcess = maxBufferSizePreProcess;
     }
+
+    @Override
+    public void add(PriorityBlockingQueue queue, T t) {
+        if (queue.size() >= maxBufferSizePreProcess) {
+            queue.remove();
+        }
+        queue.offer(t);
+    }
+
 }
