@@ -13,7 +13,7 @@ import java.util.concurrent.PriorityBlockingQueue;
  * homepage http://www.liumapp.com
  * date 2019/11/21
  */
-public class KeepNewestMissionAdder <T> implements MissionAdder {
+public class KeepNewestMissionAdder <T> implements MissionAdder<T> {
 
     @Override
     public void add(PriorityBlockingQueue queue, Object o) {

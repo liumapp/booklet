@@ -1,6 +1,7 @@
 package com.liumapp.booklet.basic.missions.demo1;
 
 import com.google.common.base.Function;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -22,7 +23,8 @@ import java.util.concurrent.PriorityBlockingQueue;
  * date 2019/11/21
  */
 @Slf4j
-public final class AsyncMissionDispatcher<T> {
+@Data
+public final class AsyncMissionDispatcher<T> implements MissionDispatcher<T> {
 
     // ============ 基本属性 ============
     private int maxProcessCount;
@@ -37,10 +39,12 @@ public final class AsyncMissionDispatcher<T> {
 
     private Map<Long, PriorityBlockingQueue<T>> mapQueue = new HashMap<>();
 
+    public static <T, P> DispatcherBuilder<T, P> newBuilder() {
+        return new AsyncDispatcherBuilder<>();
+    }
 
+    @Override
+    public void addMission(T t, Long key) {
 
-
-
-
-
+    }
 }
