@@ -11,6 +11,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * file Jaxb2Test.java
@@ -60,6 +63,84 @@ public class Jaxb2Test {
             Unmarshaller unmar = context.createUnmarshaller();
             bean = (AccountBean)unmar.unmarshal(reader);
             fail(bean);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testList2XML() {
+        ListBean listBean = new ListBean();
+        listBean.setName("list to xml");
+        List<Object> list = new ArrayList<>();
+        list.add(bean);
+        bean = new AccountBean();
+        bean.setAddress("china");
+        bean.setEmail("tom@125.com");
+        bean.setId(2);
+        bean.setName("tom");
+        Birthday day = new Birthday("2010-11-22");
+        bean.setBirthday(day);
+
+        Account acc = new Account();
+        acc.setAddress("china");
+        acc.setEmail("tom@125.com");
+        acc.setId(2);
+        acc.setName("tom");
+        day = new Birthday("2010-11-22");
+        acc.setBirthday(day);
+        list.add(bean);
+        list.add(acc);
+        listBean.setList(list);
+
+        try {
+            context = JAXBContext.newInstance(ListBean.class);
+            //下面代码演示将对象转变为xml
+            Marshaller mar = context.createMarshaller();
+            writer = new StringWriter();
+            mar.marshal(listBean, writer);
+            fail(writer);
+
+            //下面代码演示将上面生成的xml转换为对象
+            reader = new StringReader(writer.toString());
+            Unmarshaller unmar = context.createUnmarshaller();
+            listBean = (ListBean)unmar.unmarshal(reader);
+            fail(listBean.getList().get(0));
+            fail(listBean.getList().get(1));
+            fail(listBean.getList().get(2));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testMap2XML() {
+        MapBean mapBean = new MapBean();
+        HashMap<String, AccountBean> map = new HashMap<String, AccountBean>();
+        map.put("NO1", bean);
+        bean = new AccountBean();
+        bean.setAddress("china");
+        bean.setEmail("tom@125.com");
+        bean.setId(2);
+        bean.setName("tom");
+        Birthday day = new Birthday("2010-11-22");
+        bean.setBirthday(day);
+        map.put("NO2", bean);
+        mapBean.setMap(map);
+
+        try {
+            context = JAXBContext.newInstance(MapBean.class);
+            //下面代码演示将对象转变为xml
+            Marshaller mar = context.createMarshaller();
+            writer = new StringWriter();
+            mar.marshal(mapBean, writer);
+            fail(writer);
+
+            //下面代码演示将上面生成的xml转换为对象
+            reader = new StringReader(writer.toString());
+            Unmarshaller unmar = context.createUnmarshaller();
+            mapBean = (MapBean)unmar.unmarshal(reader);
+            fail(mapBean.getMap());
         } catch (JAXBException e) {
             e.printStackTrace();
         }

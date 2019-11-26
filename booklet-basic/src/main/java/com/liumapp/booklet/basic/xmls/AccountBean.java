@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * homepage http://www.liumapp.com
  * date 2019/11/26
  */
-@XmlRootElement(name = "account")
+@XmlRootElement(name = "ACCOUNT")
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class AccountBean {
     private String address;
     private Birthday birthday;
 
-    @XmlElement
+    @XmlElement(name = "BIRTHDAY")
     public Birthday getBirthday() {
         return birthday;
     }

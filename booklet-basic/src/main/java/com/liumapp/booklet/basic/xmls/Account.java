@@ -3,7 +3,7 @@ package com.liumapp.booklet.basic.xmls;
 import lombok.Data;
 
 /**
- * file Birthday.java
+ * file Account.java
  * author liumapp
  * github https://github.com/liumapp
  * email liumapp.com@gmail.com
@@ -11,14 +11,16 @@ import lombok.Data;
  * date 2019/11/26
  */
 @Data
-public class Birthday {
+public class Account {
 
-    private String date;
+    private String address;
 
-    public Birthday() {
-    }
+    private String email;
 
-    public Birthday(String date) {
-        this.date = date;
-    }
+    private int id;
+
+    private String name;
+
+    private Birthday birthday;
+
 }
