@@ -8,9 +8,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,13 +49,21 @@ public class Jaxb2Test {
     }
 
     @Test
-    public void testBean2XML() {
+    public void testBean2XML() throws IOException {
         try {
             //下面代码演示将对象转变为xml
+
             Marshaller mar = context.createMarshaller();
+
+            //隐去报文头，并且美化xml的输出
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            mar.setProperty(Marshaller.JAXB_FRAGMENT, true);
+
             writer = new StringWriter();
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             mar.marshal(bean, writer);
             fail(writer);
+            bufferToFile("file1.xml", writer.getBuffer());
 
             //下面代码演示将上面生成的xml转换为对象
             reader = new StringReader(writer.toString());
@@ -97,7 +104,13 @@ public class Jaxb2Test {
             context = JAXBContext.newInstance(ListBean.class);
             //下面代码演示将对象转变为xml
             Marshaller mar = context.createMarshaller();
+
+            //隐去报文头，并且美化xml的输出
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            mar.setProperty(Marshaller.JAXB_FRAGMENT, true);
+
             writer = new StringWriter();
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             mar.marshal(listBean, writer);
             fail(writer);
 
@@ -132,7 +145,14 @@ public class Jaxb2Test {
             context = JAXBContext.newInstance(MapBean.class);
             //下面代码演示将对象转变为xml
             Marshaller mar = context.createMarshaller();
+
+            //隐去报文头，并且美化xml的输出
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            mar.setProperty(Marshaller.JAXB_FRAGMENT, true);
+
+
             writer = new StringWriter();
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             mar.marshal(mapBean, writer);
             fail(writer);
 
@@ -170,5 +190,11 @@ public class Jaxb2Test {
 
     public void failRed(Object o) {
         System.err.println(o);
+    }
+
+    public void bufferToFile (String fileName, StringBuffer stringBuffer) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(fileName);
+        outputStream.write(stringBuffer.toString().getBytes(Charset.forName("UTF-8")));
+        outputStream.close();
     }
 }

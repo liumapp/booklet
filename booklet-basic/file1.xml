@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ACCOUNT number="1">
+    <address>北京</address>
+    <BIRTHDAY>
+        <date>2010-11-22</date>
+    </BIRTHDAY>
+    <email>email</email>
+    <name>jack</name>
+</ACCOUNT>
