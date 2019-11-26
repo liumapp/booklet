@@ -7,8 +7,8 @@ package com.liumapp.booklet.basic.missions.demo1;
  * email liumapp.com@gmail.com
  * homepage http://www.liumapp.com
  * date 2019/11/25
- */
-public interface DispatcherBuilder <T, P> {
+         */
+public interface DispatcherBuilder <T> {
 
     public MissionDispatcher<T> build();
 

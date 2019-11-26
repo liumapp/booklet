@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * homepage http://www.liumapp.com
  * date 2019/11/25
  */
-public class AsyncDispatcherBuilder<T, P> implements DispatcherBuilder {
+public class AsyncDispatcherBuilder<T> implements DispatcherBuilder<T> {
 
     private int maxProcessCount = 30;
 
@@ -36,7 +36,7 @@ public class AsyncDispatcherBuilder<T, P> implements DispatcherBuilder {
     public AsyncDispatcherBuilder() {
     }
 
-    public AsyncDispatcherBuilder<T, P> setMaxProcessCount(int maxProcessCount) {
+    public AsyncDispatcherBuilder<T> setMaxProcessCount(int maxProcessCount) {
         this.maxProcessCount = maxProcessCount;
         return this;
     }

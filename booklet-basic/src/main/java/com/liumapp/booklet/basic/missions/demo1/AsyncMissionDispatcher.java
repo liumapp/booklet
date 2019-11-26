@@ -39,14 +39,14 @@ public final class AsyncMissionDispatcher<T> implements MissionDispatcher<T> {
 
     private Map<Long, PriorityBlockingQueue<T>> mapQueue = new HashMap<>();
 
-    public static <T, P> DispatcherBuilder<T, P> newBuilder() {
+    public static <T> AsyncDispatcherBuilder<T> newBuilder() {
         return new AsyncDispatcherBuilder<>();
     }
 
     @Override
     public void addMission(T t, Long key) {
         long abs = Math.abs(key % maxProcessCount);
-        PriorityBlockingQueue queue =mapQueue.get(abs);
+        PriorityBlockingQueue queue = mapQueue.get(abs);
         missionAdder.add(queue, t);
     }
 
