@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest(classes = BookletRedisMain.class)
 @RunWith(SpringRunner.class)
@@ -40,8 +41,18 @@ public class BookletRedisMainTest {
 
         String jsonContent1 = "01-content", jsonContent2 = "02-content", jsonContent3 = "03-content", jsonContent4 = "04-content";
 
+        stringRedisTemplate.opsForHash().put(mapKey1, field1, jsonContent1);
+        stringRedisTemplate.opsForHash().put(mapKey1, field2, jsonContent2);
+        stringRedisTemplate.opsForHash().put(mapKey2, field3, jsonContent3);
+        stringRedisTemplate.opsForHash().put(mapKey2, field4, jsonContent4);
 
+        Map<Object, Object> maps = stringRedisTemplate.opsForHash().entries(mapKey1);
+        maps.forEach((Object key, Object value) -> {
+            System.out.println("key is " + key);
+            System.out.println("value is " + value);
 
+        });
+        System.out.println(maps);
     }
 
 
