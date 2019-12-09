@@ -34,7 +34,14 @@ public class BookletRedisMainTest {
 
     @Test
     public void stringListTest () {
-        
+        String mapKey1 = "OFF_LINE_3303", mapKey2 = "OFF_LINE_3304";
+
+        String field1 = "01", field2 = "02", field3 = "03", field4 = "04";
+
+        String jsonContent1 = "01-content", jsonContent2 = "02-content", jsonContent3 = "03-content", jsonContent4 = "04-content";
+
+
+
     }
 
 
