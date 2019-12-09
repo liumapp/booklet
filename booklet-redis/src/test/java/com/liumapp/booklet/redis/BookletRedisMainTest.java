@@ -8,9 +8,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @SpringBootTest(classes = BookletRedisMain.class)
 @RunWith(SpringRunner.class)
@@ -52,7 +52,17 @@ public class BookletRedisMainTest {
             System.out.println("value is " + value);
 
         });
-        System.out.println(maps);
+
+        stringRedisTemplate.opsForHash().delete(mapKey2, field3 + "wrongField");
+    }
+
+    @Test
+    public void tmp () throws ParseException {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date busStatusDate = simpleDateFormat.parse("2019-12-09 13:52:12");
+        long mins = (now.getTime() - busStatusDate.getTime()) / (1000 * 60);
+        System.out.println(mins);
     }
 
 
