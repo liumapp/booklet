@@ -2,7 +2,7 @@ spring:
   application:
     name: booklet-redis
   redis:
-    host: 127.0.0.1
+    host: 192.168.189.132
     port: 6379
-    password: adminadmin
+    password: 123456
     timeout: 5000ms
