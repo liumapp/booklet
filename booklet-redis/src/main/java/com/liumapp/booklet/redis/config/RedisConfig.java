@@ -47,6 +47,7 @@ public class RedisConfig {
 //        redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.setConnectionFactory(factory);
     }
+
     /**
      * 实例化 HashOperations 对象,可以使用 Hash 类型操作
      *
