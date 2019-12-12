@@ -2,10 +2,10 @@ package com.liumapp.booklet.basic.files.resources;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * file Demo1.java
@@ -24,19 +24,32 @@ public class Demo1 {
      */
     public static void main(String[] args) throws IOException {
         InputStream is = null;
+        OutputStream os = null;
 
         try {
             //read from resources
-             is = Thread.currentThread().getContextClassLoader().getResourceAsStream("info.txt");
+            is = Thread.currentThread().getContextClassLoader().getResourceAsStream("info.txt");
             byte[] bytes = new byte[is.available()];
             is.read(bytes);
             log.info(new String(bytes));
 
-            //write to resources
-
+            //write to target resources
+            String resoucePath = Demo1.class.getResource("/").getPath();
+            String filePath = resoucePath + "/run-data/info.txt";
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            os = new FileOutputStream(file);
+            os.write(bytes);
+            os.flush();
         } finally {
             if (is != null) {
                 is.close();
+            }
+            if (os != null) {
+                os.close();
             }
         }
 
