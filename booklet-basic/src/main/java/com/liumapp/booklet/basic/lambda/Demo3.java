@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
- * 将给定的一组用户中，名称为lisi的用户打包
+ * 将给定的一组用户中，名称为lisi且id大于22的用户打包
  *
  * file Demo3.java
  * author liumapp
@@ -28,6 +28,9 @@ public class Demo3 {
                 personList.add(x);
             }
         };
+
+        personConsumer = personConsumer.andThen( x -> personList.removeIf(y -> y.id < 23));
+
         Stream.of(new Person(21, "zhangsan"),
                 new Person(22, "lisi"),
                 new Person(23, "lisi"),
